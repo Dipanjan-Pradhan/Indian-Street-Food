@@ -9,8 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-handshake"></i>
+                <span>VendorConnect</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#explore" class="nav-link">Explore Foods</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#search" class="nav-link">AI Search</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#stories" class="nav-link">Success Stories</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="vendorListBtn">
+                        <i class="fas fa-list"></i> My List (<span id="listCount">0</span>)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-cta-btn" id="getStartedBtn">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
     <!-- Header Section -->
-    <header class="header">
+    <header class="header" id="home">
         <div class="container">
             <h1 class="title">Explore Street Food Ingredients</h1>
             <p class="subheading">Find everything you need, curated by AI, for your street food stall.</p>
@@ -18,136 +57,271 @@
     </header>
 
     <!-- Food Image Carousel Animation Section -->
-    <section class="carousel-section">
+    <section class="carousel-section" id="explore">
+        <div class="container">
+            <h2 class="section-title">Discover Popular Street Foods</h2>
+            <p class="section-subtitle">Click on any food to start your vendor journey with AI-powered ingredients</p>
+        </div>
         <div class="carousel-container">
             <!-- First Row - Left to Right -->
             <div class="carousel-row left-to-right">
-                <div class="food-item" data-name="Phuchka">
+                <div class="food-item" data-food="Phuchka" data-region="West Bengal, India" data-popularity="Famous for its tangy water and crispy shells. Loved by millions for its burst of flavors and affordable price.">
                     <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" alt="Phuchka">
-                    <div class="food-overlay">Phuchka</div>
+                    <div class="food-overlay">
+                        <h3>Phuchka</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in West Bengal, India</p>
+                            <p>Famous for its tangy water and crispy shells</p>
+                            <p>Loved by millions for its burst of flavors</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Vada Pav">
+                <div class="food-item" data-food="Vada Pav" data-region="Mumbai, India" data-popularity="Mumbai's favorite street food, called the Indian burger. Perfect combination of spicy vada and soft pav bread.">
                     <img src="https://images.unsplash.com/photo-1626132647523-66f3febb3cea?w=300&h=200&fit=crop" alt="Vada Pav">
-                    <div class="food-overlay">Vada Pav</div>
+                    <div class="food-overlay">
+                        <h3>Vada Pav</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in Mumbai, India</p>
+                            <p>Mumbai's favorite street food, called the Indian burger</p>
+                            <p>Perfect combination of spicy vada and soft pav bread</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Chole Bhature">
+                <div class="food-item" data-food="Chole Bhature" data-region="North India" data-popularity="Rich and hearty Punjabi dish. Beloved for its fluffy bread and spicy chickpea curry combination.">
                     <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&h=200&fit=crop" alt="Chole Bhature">
-                    <div class="food-overlay">Chole Bhature</div>
+                    <div class="food-overlay">
+                        <h3>Chole Bhature</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in North India</p>
+                            <p>Rich and hearty Punjabi dish</p>
+                            <p>Beloved for its fluffy bread and spicy curry</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Masala Chai">
+                <div class="food-item" data-food="Masala Chai" data-region="All over India" data-popularity="India's most beloved beverage. Perfect blend of tea, spices, and milk that energizes millions daily.">
                     <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=300&h=200&fit=crop" alt="Masala Chai">
-                    <div class="food-overlay">Masala Chai</div>
+                    <div class="food-overlay">
+                        <h3>Masala Chai</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular all over India</p>
+                            <p>India's most beloved beverage</p>
+                            <p>Perfect blend of tea, spices, and milk</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Pav Bhaji">
+                <div class="food-item" data-food="Pav Bhaji" data-region="Mumbai, India" data-popularity="Mumbai's iconic street food. Loved for its buttery vegetables and soft bread combination.">
                     <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" alt="Pav Bhaji">
-                    <div class="food-overlay">Pav Bhaji</div>
+                    <div class="food-overlay">
+                        <h3>Pav Bhaji</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in Mumbai, India</p>
+                            <p>Mumbai's iconic street food</p>
+                            <p>Loved for its buttery vegetables and soft bread</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Samosa">
+                <div class="food-item" data-food="Samosa" data-region="All over India" data-popularity="India's most popular snack. Crispy triangular pastry loved for its spicy potato filling.">
                     <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&h=200&fit=crop" alt="Samosa">
-                    <div class="food-overlay">Samosa</div>
+                    <div class="food-overlay">
+                        <h3>Samosa</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular all over India</p>
+                            <p>India's most popular snack</p>
+                            <p>Crispy triangular pastry with spicy filling</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Dosa">
+                <div class="food-item" data-food="Dosa" data-region="South India" data-popularity="South India's breakfast king. Thin crispy crepe loved for its simplicity and versatility with various fillings.">
                     <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&h=200&fit=crop" alt="Dosa">
-                    <div class="food-overlay">Dosa</div>
+                    <div class="food-overlay">
+                        <h3>Dosa</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in South India</p>
+                            <p>South India's breakfast king</p>
+                            <p>Thin crispy crepe with various fillings</p>
+                        </div>
+                    </div>
                 </div>
                 <!-- Duplicate for seamless loop -->
-                <div class="food-item" data-name="Phuchka">
+                <div class="food-item" data-food="Phuchka" data-region="West Bengal, India" data-popularity="Famous for its tangy water and crispy shells. Loved by millions for its burst of flavors.">
                     <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" alt="Phuchka">
-                    <div class="food-overlay">Phuchka</div>
-                </div>
-                <div class="food-item" data-name="Vada Pav">
-                    <img src="https://images.unsplash.com/photo-1626132647523-66f3febb3cea?w=300&h=200&fit=crop" alt="Vada Pav">
-                    <div class="food-overlay">Vada Pav</div>
+                    <div class="food-overlay">
+                        <h3>Phuchka</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in West Bengal, India</p>
+                            <p>Famous for its tangy water and crispy shells</p>
+                            <p>Loved by millions for its burst of flavors</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Second Row - Right to Left -->
             <div class="carousel-row right-to-left">
-                <div class="food-item" data-name="Bhel Puri">
+                <div class="food-item" data-food="Bhel Puri" data-region="Mumbai, India" data-popularity="Mumbai's crunchy delight. Perfect mix of puffed rice, chutneys, and vegetables loved for its texture.">
                     <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Bhel Puri">
-                    <div class="food-overlay">Bhel Puri</div>
+                    <div class="food-overlay">
+                        <h3>Bhel Puri</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in Mumbai, India</p>
+                            <p>Mumbai's crunchy delight</p>
+                            <p>Perfect mix of puffed rice and chutneys</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Kachori">
+                <div class="food-item" data-food="Kachori" data-region="Rajasthan, India" data-popularity="Rajasthan's flaky favorite. Deep-fried bread stuffed with spicy lentils, perfect with chutney.">
                     <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop" alt="Kachori">
-                    <div class="food-overlay">Kachori</div>
+                    <div class="food-overlay">
+                        <h3>Kachori</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in Rajasthan, India</p>
+                            <p>Rajasthan's flaky favorite</p>
+                            <p>Deep-fried bread stuffed with spicy lentils</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Jalebi">
+                <div class="food-item" data-food="Jalebi" data-region="North India" data-popularity="India's spiral sweet. Crispy and syrupy dessert loved for its unique shape and sweetness.">
                     <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop" alt="Jalebi">
-                    <div class="food-overlay">Jalebi</div>
+                    <div class="food-overlay">
+                        <h3>Jalebi</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in North India</p>
+                            <p>India's spiral sweet</p>
+                            <p>Crispy and syrupy dessert loved for its shape</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Aloo Tikki">
+                <div class="food-item" data-food="Aloo Tikki" data-region="Delhi, India" data-popularity="Delhi's potato patty. Crispy outside, soft inside, served with tangy chutneys and yogurt.">
                     <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Aloo Tikki">
-                    <div class="food-overlay">Aloo Tikki</div>
+                    <div class="food-overlay">
+                        <h3>Aloo Tikki</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in Delhi, India</p>
+                            <p>Delhi's potato patty</p>
+                            <p>Crispy outside, soft inside with chutneys</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Kulfi">
+                <div class="food-item" data-food="Kulfi" data-region="North India" data-popularity="Traditional Indian ice cream. Dense and creamy dessert made with milk, loved for its rich taste.">
                     <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop" alt="Kulfi">
-                    <div class="food-overlay">Kulfi</div>
+                    <div class="food-overlay">
+                        <h3>Kulfi</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in North India</p>
+                            <p>Traditional Indian ice cream</p>
+                            <p>Dense and creamy dessert with rich taste</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Paratha">
+                <div class="food-item" data-food="Paratha" data-region="North India" data-popularity="North India's flatbread. Stuffed with various fillings, perfect for breakfast or any meal.">
                     <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Paratha">
-                    <div class="food-overlay">Paratha</div>
+                    <div class="food-overlay">
+                        <h3>Paratha</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in North India</p>
+                            <p>North India's stuffed flatbread</p>
+                            <p>Perfect for breakfast with various fillings</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="food-item" data-name="Chaat">
+                <div class="food-item" data-food="Chaat" data-region="All over India" data-popularity="India's favorite snack category. Sweet, sour, spicy combination that tantalizes taste buds.">
                     <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop" alt="Chaat">
-                    <div class="food-overlay">Chaat</div>
+                    <div class="food-overlay">
+                        <h3>Chaat</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular all over India</p>
+                            <p>India's favorite snack category</p>
+                            <p>Sweet, sour, spicy combination</p>
+                        </div>
+                    </div>
                 </div>
                 <!-- Duplicate for seamless loop -->
-                <div class="food-item" data-name="Bhel Puri">
+                <div class="food-item" data-food="Bhel Puri" data-region="Mumbai, India" data-popularity="Mumbai's crunchy delight. Perfect mix of puffed rice, chutneys, and vegetables.">
                     <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Bhel Puri">
-                    <div class="food-overlay">Bhel Puri</div>
-                </div>
-                <div class="food-item" data-name="Kachori">
-                    <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop" alt="Kachori">
-                    <div class="food-overlay">Kachori</div>
+                    <div class="food-overlay">
+                        <h3>Bhel Puri</h3>
+                        <div class="food-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Most popular in Mumbai, India</p>
+                            <p>Mumbai's crunchy delight</p>
+                            <p>Perfect mix of puffed rice and chutneys</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- AI-Powered Food Search Section -->
-    <section class="search-section">
+    <section class="search-section" id="search">
         <div class="container">
+            <h2 class="section-title">AI-Powered Food Discovery</h2>
+            <p class="section-subtitle">Search for any street food and let AI help you become a vendor</p>
             <div class="search-container">
                 <div class="search-box">
-                    <input type="text" id="foodSearch" placeholder="Search for your street food category..." autocomplete="off">
+                    <input type="text" id="foodSearch" placeholder="Enter any street food name (e.g., tacos, burger, ramen)..." autocomplete="off">
                     <button id="searchBtn" class="search-btn">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
                 <div id="suggestions" class="suggestions"></div>
-                <div id="foodCard" class="food-card hidden"></div>
+                <div id="searchResults" class="search-results hidden"></div>
             </div>
         </div>
     </section>
 
     <!-- Success Stories Section -->
-    <section class="stories-section">
+    <section class="stories-section" id="stories">
         <div class="container">
-            <h2 class="section-title">Success Stories</h2>
-            <div class="stories-grid">
-                <div class="story-card" data-animation="fade-in">
-                    <div class="story-image">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Ravi Chaiwala">
-                    </div>
-                    <div class="story-content">
-                        <h3>Ravi Chaiwala</h3>
-                        <p class="location">Chennai</p>
-                        <blockquote>"This platform changed my life — I found all the materials in one place!"</blockquote>
-                    </div>
+            <h2 class="section-title">Real Success Stories</h2>
+            <p class="section-subtitle">Discover how real vendors transformed their businesses with our platform</p>
+            <div class="stories-container">
+                <div class="stories-track" id="storiesTrack">
+                    <!-- Stories will be loaded dynamically via API -->
                 </div>
+            </div>
+            <div class="story-navigation">
+                <button class="story-nav-btn" id="prevStory">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="story-indicators" id="storyIndicators"></div>
+                <button class="story-nav-btn" id="nextStory">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
 
-                <div class="story-card" data-animation="slide-in-left">
-                    <div class="story-image">
-                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b647?w=100&h=100&fit=crop&crop=face" alt="Priya Dosa Queen">
-                    </div>
-                    <div class="story-content">
-                        <h3>Priya Dosa Queen</h3>
-                        <p class="location">Bangalore</p>
-                        <blockquote>"From a small cart to 3 outlets! The ingredient sourcing made all the difference."</blockquote>
-                    </div>
-                </div>
+    <!-- Vendor Details Modal -->
+    <div id="vendorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Start Your Vendor Journey</h2>
+                <span class="close-btn" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content loaded here -->
+            </div>
+        </div>
+    </div>
 
-                <div class="story-card" data-animation="slide-in-right">
+    <!-- Vendor List Modal -->
+    <div id="vendorListModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>My Vendor List</h2>
+                <span class="close-btn" id="closeVendorListModal">&times;</span>
+            </div>
+            <div class="modal-body" id="vendorListBody">
+                <!-- Vendor list content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
+        <p>AI is analyzing your food choice...</p>
+    </div>in-right">
                     <div class="story-image">
                         <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Mukesh Samosa King">
                     </div>
