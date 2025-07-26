@@ -3,11 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Street Food</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>VendorConnect - Connect Vendors & Suppliers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-black text-white">
-    Login Page
-    this page takes name email and phone number.
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-handshake"></i>
+                <span>VendorConnect</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#registration" class="btn-nav">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Connect Vendors & Suppliers
+                    <span class="gradient-text">Seamlessly</span>
+                </h1>
+                <p class="hero-description">
+                    Bridge the gap between street vendors and raw material suppliers. 
+                    Streamline your business operations with our smart platform.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#registration" class="btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Start Your Journey
+                    </a>
+                    <button class="btn-secondary" id="watchDemo">
+                        <i class="fas fa-play"></i>
+                        Watch Demo
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card card-1">
+                    <i class="fas fa-store"></i>
+                    <span>10,000+ Vendors</span>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-truck"></i>
+                    <span>5,000+ Suppliers</span>
+                </div>
+                <div class="floating-card card-3">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Real-time Analytics</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose VendorConnect?</h2>
+                <p>Powerful features designed to revolutionize your business operations</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile-First Design</h3>
+                    <p>Access your dashboard anywhere, anytime. Our responsive design works perfectly on all devices.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Real-Time Matching</h3>
+                    <p>Instantly connect with nearby suppliers or vendors using our smart matching algorithm.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Transactions</h3>
+                    <p>End-to-end encryption ensures your business data and transactions remain secure.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Track your business performance with detailed analytics and insights.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Get help whenever you need it with our round-the-clock customer support.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Multi-Language</h3>
+                    <p>Available in multiple local languages to serve diverse communities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="15000">0</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="500">0</div>
+                    <div class="stat-label">Cities Covered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="1000000">0</div>
+                    <div class="stat-label">Transactions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="98">0</div>
+                    <div class="stat-label">Success Rate %</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="registration" class="registration">
+        <div class="container">
+            <div class="registration-content">
+                <div class="registration-info">
+                    <h2>Join VendorConnect Today</h2>
+                    <p>Start connecting with the right business partners and grow your business exponentially.</p>
+                    
+                    <div class="benefits">
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free to get started</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>No hidden charges</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>24/7 customer support</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instant verification</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="registration-form-container">
+                    <form id="registrationForm" class="registration-form">
+                        <div class="form-header">
+                            <h3>Create Your Account</h3>
+                            <p>Join thousands of successful businesses</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fullName">
+                                <i class="fas fa-user"></i>
+                                Full Name
+                            </label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mobile">
+                                <i class="fas fa-phone"></i>
+                                Mobile Number
+                            </label>
+                            <input type="tel" id="mobile" name="mobile" required placeholder="Enter 10-digit mobile number" maxlength="10">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userType">
+                                <i class="fas fa-briefcase"></i>
+                                I am a
+                            </label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="vendor" name="userType" value="vendor" required>
+                                    <label for="vendor" class="radio-label">
+                                        <i class="fas fa-store"></i>
+                                        <div>
+                                            <strong>Vendor</strong>
+                                            <span>I sell products to customers</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="radio-option">
+                                    <input type="radio" id="supplier" name="userType" value="supplier" required>
+                                    <label for="supplier" class="radio-label">
+                                        <i class="fas fa-truck"></i>
+                                        <div>
+                                            <strong>Supplier</strong>
+                                            <span>I supply raw materials</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <i class="fas fa-rocket"></i>
+                            <span>Create Account</span>
+                        </button>
+                        
+                        <div class="form-footer">
+                            <p>Already have an account? <a href="#" class="link">Sign In</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>Welcome to VendorConnect!</h2>
+            </div>
+            <div class="modal-body">
+                <p>Your account has been created successfully.</p>
+                <p>We'll send a verification link to your email address shortly.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="closeModal">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-handshake"></i>
+                    <span>VendorConnect</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VendorConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
