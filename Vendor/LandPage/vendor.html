@@ -17,23 +17,6 @@
         </div>
     </header>
 
-    <!-- AI-Powered Food Search Section -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-container">
-                <div class="search-box">
-                    <input type="text" id="foodSearch" placeholder="Search for your street food category..." autocomplete="off">
-                    <button id="searchBtn" class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                <div id="suggestions" class="suggestions"></div>
-                <div id="foodCard" class="food-card hidden"></div>
-            </div>
-        </div>
-    </section>
-
-
     <!-- Food Image Carousel Animation Section -->
     <section class="carousel-section">
         <div class="carousel-container">
@@ -121,53 +104,62 @@
         </div>
     </section>
 
-    <!-- Success Stories Section -->
-    <!-- Success Stories Section -->
-<section class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 py-20 px-4">
-    <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold text-white text-center mb-12">Supplier Success Stories</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <!-- Supplier 1 -->
-            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition transform hover:-translate-y-2">
-                <div class="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white/30">
-                    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=100&h=100&fit=crop&crop=face" 
-                         alt="Anita Groceries" 
-                         class="w-full h-full object-cover">
+    <!-- AI-Powered Food Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="foodSearch" placeholder="Search for your street food category..." autocomplete="off">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2">Anita Patel</h3>
-                <p class="text-blue-200 mb-4">Ahmedabad</p>
-                <blockquote class="text-white/90 italic">"Since joining VendorConnect, my grocery supply business has flourished across multiple stalls and markets."</blockquote>
+                <div id="suggestions" class="suggestions"></div>
+                <div id="foodCard" class="food-card hidden"></div>
             </div>
-
-            <!-- Supplier 2 -->
-            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition transform hover:-translate-y-2">
-                <div class="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white/30">
-                    <img src="https://images.unsplash.com/photo-1544725176-7c40e5a2c9f9?w=100&h=100&fit=crop&crop=face" 
-                         alt="Sundar Fresh Farm" 
-                         class="w-full h-full object-cover">
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">Sundar Kumar</h3>
-                <p class="text-blue-200 mb-4">Madurai</p>
-                <blockquote class="text-white/90 italic">"I supply fresh vegetables daily, and VendorConnect helped me connect with 3x more food vendors!"</blockquote>
-            </div>
-
-            <!-- Supplier 3 -->
-            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition transform hover:-translate-y-2">
-                <div class="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white/30">
-                    <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?w=100&h=100&fit=crop&crop=face" 
-                         alt="Fatima Spice Supply" 
-                         class="w-full h-full object-cover">
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">Fatima Sheikh</h3>
-                <p class="text-blue-200 mb-4">Hyderabad</p>
-                <blockquote class="text-white/90 italic">"Our family spice business grew steadily thanks to orders placed through VendorConnect from food vendors."</blockquote>
-            </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
+    <!-- Success Stories Section -->
+    <section class="stories-section">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="stories-grid">
+                <div class="story-card" data-animation="fade-in">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Ravi Chaiwala">
+                    </div>
+                    <div class="story-content">
+                        <h3>Ravi Chaiwala</h3>
+                        <p class="location">Chennai</p>
+                        <blockquote>"This platform changed my life — I found all the materials in one place!"</blockquote>
+                    </div>
+                </div>
+
+                <div class="story-card" data-animation="slide-in-left">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b647?w=100&h=100&fit=crop&crop=face" alt="Priya Dosa Queen">
+                    </div>
+                    <div class="story-content">
+                        <h3>Priya Dosa Queen</h3>
+                        <p class="location">Bangalore</p>
+                        <blockquote>"From a small cart to 3 outlets! The ingredient sourcing made all the difference."</blockquote>
+                    </div>
+                </div>
+
+                <div class="story-card" data-animation="slide-in-right">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Mukesh Samosa King">
+                    </div>
+                    <div class="story-content">
+                        <h3>Mukesh Samosa King</h3>
+                        <p class="location">Delhi</p>
+                        <blockquote>"Quality ingredients at great prices. My customers keep coming back for more!"</blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
