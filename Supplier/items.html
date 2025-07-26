@@ -3,57 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supplier Items</title>
+    <title>Supplier Items | VendorConnect</title>
     <link href="./static/output.css" rel="stylesheet">
     <link rel="stylesheet" href="./static/input.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen w-full animate-fade-in" style="overflow-y: hidden;">
+<body class="bg-gradient-to-br from-blue-500 via-blue-200 to-indigo-800 min-h-screen w-full animate-fade-in font-['Poppins']">
     <!-- Sticky Navigation Bar -->
-    <nav class="w-full bg-white shadow z-10 py-4 px-8 flex items-center justify-between">
-        <a href="#home" class="flex items-center gap-2 nav-logo">
+    <nav class="w-full bg-white/90 backdrop-blur-sm shadow-lg z-50 py-4 px-8 flex items-center justify-between">
+        <a href="welcome.html" class="flex items-center gap-2 nav-logo">
             <i class="fas fa-handshake text-blue-600 text-2xl"></i>
             <span class="text-2xl font-bold text-blue-600">VendorConnect</span>
         </a>
         <div class="flex items-center gap-6 nav-links">
-            <a href="#features" class="text-blue-600 font-semibold hover:underline">Features</a>
-            <a href="#home" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition btn-nav">Home</a>
+            <a href="welcome.html#features" class="text-blue-600 font-semibold hover:text-blue-800 transition">Features</a>
+            <a href="welcome.html" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 transition transform hover:scale-105">Home</a>
         </div>
     </nav>
-    <main class="w-full h-full py-10 px-4">
-        <div class="bg-white h-full shadow-lg p-8">
-            <div class="mb-6 flex justify-between">
-            <h2 class="text-3xl font-extrabold mb-8 text-blue-700">Items for Sale</h2>
-                <input id="searchBar" type="text" placeholder="Search items..." class="w-100 h-10 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <main class="w-full py-8 md:py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4">Manage Your Items</h1>
+                <p class="text-xl text-blue-700 font-medium">Add, update, and organize your product catalog</p>
             </div>
-            <form id="itemsForm">
-                <div id="itemsContainer" class="space-y-4">
-                    <div class="grid grid-cols-12 gap-4 item-row items-center bg-blue-50 rounded-lg p-4">
-                        <input type="text" name="itemName[]" required class="col-span-7 lg:col-span-9 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Item Name">
-                        <input type="number" name="itemPrice[]" required min="0" step="0.01" class="col-span-4 lg:col-span-2 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Price">
-                        <button type="button" onclick="removeItemRow(this)" class="col-span-1 text-red-500 hover:text-red-700 font-bold text-2xl transition">&times;</button>
+
+            <!-- Main Content Card -->
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8 border border-blue-100">
+                <div class="mb-6 flex flex-col md:flex-row md:justify-between gap-4 items-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-blue-800">Items for Sale</h2>
+                    <div class="relative px-4 border border-blue-200 rounded-xl flex items-center bg-white/50 backdrop-blur-sm">
+                        <i class="fas fa-search text-blue-600 mr-3"></i>
+                        <input id="searchBar" type="text" placeholder="Search items..." 
+                               class="w-full h-12 px-2 py-2 focus:outline-none bg-transparent text-blue-800 placeholder-blue-400" />
                     </div>
                 </div>
-                <div class="flex gap-4 mt-8">
-                    <button type="button" onclick="addItemRow()" class="flex-1 bg-gradient-to-r from-green-400 to-green-600 text-white py-3 rounded-xl shadow hover:from-green-500 hover:to-green-700 transition text-lg font-semibold flex items-center justify-center gap-2">
-                        <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 4v16m8-8H4'/></svg>
-                        Add Item
-                    </button>
-                    <button type="submit" class="flex-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-xl shadow hover:from-blue-600 hover:to-blue-800 transition text-lg font-semibold">Submit</button>
-                </div>
-            </form>
+
+                <form id="itemsForm">
+                    <div id="itemsContainer" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 item-row items-center p-4 bg-white/50 backdrop-blur-sm rounded-2xl border border-blue-100 hover:shadow-lg transition">
+                            <input type="text" name="itemName[]" required 
+                                   class="md:col-span-7 lg:col-span-9 px-4 py-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-base bg-white/80 backdrop-blur-sm text-blue-800 placeholder-blue-400" 
+                                   placeholder="Item Name">
+                            <input type="number" name="itemPrice[]" required min="0" step="0.01" 
+                                   class="md:col-span-4 lg:col-span-2 px-4 py-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-base bg-white/80 backdrop-blur-sm text-blue-800 placeholder-blue-400" 
+                                   placeholder="Price">
+                            <button type="button" onclick="removeItemRow(this)" 
+                                    class="col-span-1 text-red-500 hover:text-red-700 font-bold text-2xl transition p-2 cursor-pointer hover:scale-110">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-4 mt-8">
+                        <button type="button" onclick="addItemRow()" 
+                                class="flex-1 bg-gradient-to-r from-green-400 to-green-600 text-white py-4 rounded-2xl shadow-lg hover:from-green-500 hover:to-green-700 transition transform hover:scale-105 text-lg font-semibold flex items-center justify-center gap-3">
+                            <i class="fas fa-plus"></i>
+                            Add Item
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-4 rounded-2xl shadow-lg hover:from-blue-600 hover:to-indigo-700 transition transform hover:scale-105 text-lg font-semibold flex items-center justify-center gap-3">
+                            <i class="fas fa-save"></i>
+                            Save Items
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
-    <footer class="w-full text-center text-xs text-gray-400 mt-2 mb-2 select-none absolute bottom-0">
-        &copy; 2024 Indian Street Food Supplier Portal
+
+    <!-- Modern Footer -->
+    <footer class="w-full bg-gradient-to-r from-blue-800 to-indigo-900 text-white py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-6">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fas fa-handshake text-blue-300 text-2xl"></i>
+                        <span class="text-2xl font-bold text-blue-300">VendorConnect</span>
+                    </div>
+                    <p class="text-blue-200 leading-relaxed">
+                        Manage your product catalog efficiently and connect with vendors across India. 
+                        Streamline your supply chain with our modern platform.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-blue-200">Quick Actions</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Add New Item</a></li>
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">View Analytics</a></li>
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Export Data</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-blue-200">Support</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-blue-300 hover:text-white transition text-xl"><i class="fas fa-question-circle"></i></a>
+                        <a href="#" class="text-blue-300 hover:text-white transition text-xl"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="text-blue-300 hover:text-white transition text-xl"><i class="fas fa-phone"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 pt-6 text-center">
+                <p class="text-blue-300">&copy; 2024 VendorConnect - Indian Street Food Supplier Portal. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
     <style>
         @keyframes fade-in {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: none; }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
         }
         .animate-fade-in {
-            animation: fade-in 0.7s cubic-bezier(0.4,0,0.2,1);
+            animation: fade-in 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
     <script src="./static/item.js"></script>

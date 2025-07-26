@@ -16,6 +16,10 @@ suggestionBox.style.overflowY = 'auto';
 suggestionBox.style.display = 'none';
 suggestionBox.className = 'mt-1';
 searchBar.parentElement.appendChild(suggestionBox);
+const rect = searchBar.getBoundingClientRect();
+suggestionBox.style.top = `${rect.bottom + window.scrollY}px`;
+suggestionBox.style.left = `${rect.left + window.scrollX}px`;
+
 
 function updateSuggestions() {
     const searchTerm = searchBar.value.trim().toLowerCase();
@@ -35,6 +39,9 @@ function updateSuggestions() {
     // Show suggestions
     if (matches.length > 0) {
         suggestionBox.innerHTML = matches.map(name => `<div class='px-4 py-2 hover:bg-blue-100 cursor-pointer rounded'>${name}</div>`).join('');
+        const rect = searchBar.getBoundingClientRect();
+        suggestionBox.style.top = `${rect.bottom + window.scrollY}px`;
+        suggestionBox.style.left = `${rect.left + window.scrollX}px`;
         suggestionBox.style.display = '';
         suggestionBox.style.width = searchBar.offsetWidth + 'px';
     } else {
@@ -46,7 +53,7 @@ function updateSuggestions() {
 searchBar.addEventListener('input', updateSuggestions);
 
 // Handle click on suggestion
-suggestionBox.addEventListener('mousedown', function(e) {
+suggestionBox.addEventListener('mousedown', function (e) {
     if (e.target && e.target.textContent) {
         searchBar.value = e.target.textContent;
         suggestionBox.style.display = 'none';
@@ -55,11 +62,11 @@ suggestionBox.addEventListener('mousedown', function(e) {
 });
 
 // Hide suggestions on blur (with slight delay for click)
-searchBar.addEventListener('blur', function() {
+searchBar.addEventListener('blur', function () {
     setTimeout(() => { suggestionBox.style.display = 'none'; }, 120);
 });
 
 // Show suggestions again on focus if there is a value
-searchBar.addEventListener('focus', function() {
+searchBar.addEventListener('focus', function () {
     if (searchBar.value.trim().length > 0) updateSuggestions();
 }); 
