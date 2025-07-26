@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Registration - Raw Material Helper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛒 Vendor Registration</h1>
+            <p>Register to get help with raw materials</p>
+        </header>
+
+        <form id="vendorForm">
+            <!-- Vendor Details Section -->
+            <div class="form-section">
+                <h2>📝 Your Details</h2>
+                
+                <div class="input-group">
+                    <label for="vendorName">Your Name *</label>
+                    <input type="text" id="vendorName" name="vendorName" required placeholder="Enter your full name">
+                </div>
+
+                <div class="input-group">
+                    <label for="mobileNumber">Mobile Number *</label>
+                    <input type="tel" id="mobileNumber" name="mobileNumber" required placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" maxlength="10">
+                </div>
+
+                <div class="input-group">
+                    <label for="vendorType">What do you sell? *</label>
+                    <select id="vendorType" name="vendorType" required>
+                        <option value="">Select your business type</option>
+                        <option value="phuchkawala">🥟 Phuchkawala (Golgappa)</option>
+                        <option value="chaiwala">☕ Chaiwala (Tea Seller)</option>
+                        <option value="vadapav">🍔 Vada Pav Seller</option>
+                        <option value="dosa">🥞 Dosa Seller</option>
+                        <option value="chaat">🍽️ Chaat Seller</option>
+                        <option value="samosa">🥟 Samosa Seller</option>
+                        <option value="juice">🥤 Juice Seller</option>
+                        <option value="icecream">🍦 Ice Cream Seller</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Ingredients Section -->
+            <div class="form-section" id="ingredientsSection" style="display: none;">
+                <h2>🛍️ Raw Materials Needed</h2>
+                <p class="section-description">These are common ingredients for your business. You can add or remove items as needed.</p>
+                
+                <div id="ingredientsList" class="ingredients-container">
+                    <!-- Ingredients will be populated here -->
+                </div>
+
+                <div class="add-ingredient-section">
+                    <h3>Add New Ingredient</h3>
+                    <div class="add-ingredient-form">
+                        <input type="text" id="newIngredient" placeholder="Enter ingredient name">
+                        <button type="button" id="addIngredientBtn" class="btn-secondary">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Section -->
+            <div class="form-section" id="submitSection" style="display: none;">
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    ✅ Submit Request
+                </button>
+            </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message" style="display: none;">
+            <div class="success-content">
+                <h2>🎉 Success!</h2>
+                <p>Your request has been submitted successfully.</p>
+                <p>We will contact you soon on your mobile number.</p>
+                <button type="button" id="newRegistration" class="btn-secondary">Register Another Vendor</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
