@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Street Food Ingredients</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="title">Explore Street Food Ingredients</h1>
+            <p class="subheading">Find everything you need, curated by AI, for your street food stall.</p>
+        </div>
+    </header>
+
+    <!-- AI-Powered Food Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="foodSearch" placeholder="Search for your street food category..." autocomplete="off">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div id="suggestions" class="suggestions"></div>
+                <div id="foodCard" class="food-card hidden"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Food Image Carousel Animation Section -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <!-- First Row - Left to Right -->
+            <div class="carousel-row left-to-right">
+                <div class="food-item" data-name="Phuchka">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" alt="Phuchka">
+                    <div class="food-overlay">Phuchka</div>
+                </div>
+                <div class="food-item" data-name="Vada Pav">
+                    <img src="https://images.unsplash.com/photo-1626132647523-66f3febb3cea?w=300&h=200&fit=crop" alt="Vada Pav">
+                    <div class="food-overlay">Vada Pav</div>
+                </div>
+                <div class="food-item" data-name="Chole Bhature">
+                    <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&h=200&fit=crop" alt="Chole Bhature">
+                    <div class="food-overlay">Chole Bhature</div>
+                </div>
+                <div class="food-item" data-name="Masala Chai">
+                    <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=300&h=200&fit=crop" alt="Masala Chai">
+                    <div class="food-overlay">Masala Chai</div>
+                </div>
+                <div class="food-item" data-name="Pav Bhaji">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" alt="Pav Bhaji">
+                    <div class="food-overlay">Pav Bhaji</div>
+                </div>
+                <div class="food-item" data-name="Samosa">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&h=200&fit=crop" alt="Samosa">
+                    <div class="food-overlay">Samosa</div>
+                </div>
+                <div class="food-item" data-name="Dosa">
+                    <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&h=200&fit=crop" alt="Dosa">
+                    <div class="food-overlay">Dosa</div>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="food-item" data-name="Phuchka">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" alt="Phuchka">
+                    <div class="food-overlay">Phuchka</div>
+                </div>
+                <div class="food-item" data-name="Vada Pav">
+                    <img src="https://images.unsplash.com/photo-1626132647523-66f3febb3cea?w=300&h=200&fit=crop" alt="Vada Pav">
+                    <div class="food-overlay">Vada Pav</div>
+                </div>
+            </div>
+
+            <!-- Second Row - Right to Left -->
+            <div class="carousel-row right-to-left">
+                <div class="food-item" data-name="Bhel Puri">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Bhel Puri">
+                    <div class="food-overlay">Bhel Puri</div>
+                </div>
+                <div class="food-item" data-name="Kachori">
+                    <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop" alt="Kachori">
+                    <div class="food-overlay">Kachori</div>
+                </div>
+                <div class="food-item" data-name="Jalebi">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop" alt="Jalebi">
+                    <div class="food-overlay">Jalebi</div>
+                </div>
+                <div class="food-item" data-name="Aloo Tikki">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Aloo Tikki">
+                    <div class="food-overlay">Aloo Tikki</div>
+                </div>
+                <div class="food-item" data-name="Kulfi">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop" alt="Kulfi">
+                    <div class="food-overlay">Kulfi</div>
+                </div>
+                <div class="food-item" data-name="Paratha">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Paratha">
+                    <div class="food-overlay">Paratha</div>
+                </div>
+                <div class="food-item" data-name="Chaat">
+                    <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop" alt="Chaat">
+                    <div class="food-overlay">Chaat</div>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="food-item" data-name="Bhel Puri">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Bhel Puri">
+                    <div class="food-overlay">Bhel Puri</div>
+                </div>
+                <div class="food-item" data-name="Kachori">
+                    <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop" alt="Kachori">
+                    <div class="food-overlay">Kachori</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section -->
+    <section class="stories-section">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="stories-grid">
+                <div class="story-card" data-animation="fade-in">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Ravi Chaiwala">
+                    </div>
+                    <div class="story-content">
+                        <h3>Ravi Chaiwala</h3>
+                        <p class="location">Chennai</p>
+                        <blockquote>"This platform changed my life — I found all the materials in one place!"</blockquote>
+                    </div>
+                </div>
+
+                <div class="story-card" data-animation="slide-in-left">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b647?w=100&h=100&fit=crop&crop=face" alt="Priya Dosa Queen">
+                    </div>
+                    <div class="story-content">
+                        <h3>Priya Dosa Queen</h3>
+                        <p class="location">Bangalore</p>
+                        <blockquote>"From a small cart to 3 outlets! The ingredient sourcing made all the difference."</blockquote>
+                    </div>
+                </div>
+
+                <div class="story-card" data-animation="slide-in-right">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Mukesh Samosa King">
+                    </div>
+                    <div class="story-content">
+                        <h3>Mukesh Samosa King</h3>
+                        <p class="location">Delhi</p>
+                        <blockquote>"Quality ingredients at great prices. My customers keep coming back for more!"</blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">About Us</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Street Food Ingredients Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
