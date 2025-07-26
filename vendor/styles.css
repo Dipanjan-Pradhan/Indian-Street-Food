@@ -62,9 +62,9 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -85,7 +85,8 @@ body {
     gap: 0.5rem;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #60a5fa;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
 }
 
 .nav-logo i {
@@ -100,27 +101,30 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-primary);
+    color: #e2e8f0;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: var(--primary-color);
+    color: #60a5fa;
+    text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
 }
 
 .btn-nav {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, #6366f1, #06b6d4);
     color: white !important;
     padding: 0.5rem 1.5rem;
     border-radius: var(--radius-lg);
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .btn-nav:hover {
-    background: var(--primary-dark);
+    background: linear-gradient(135deg, #4f46e5, #0891b2);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    text-shadow: none;
 }
 
 /* Hero Section */
@@ -236,22 +240,26 @@ body {
 
 .floating-card {
     position: absolute;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(15px);
     padding: 1.5rem;
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: var(--text-primary);
+    color: #e2e8f0;
     font-weight: 600;
     animation: float 6s ease-in-out infinite;
+    border: 1px solid rgba(96, 165, 250, 0.2);
 }
 
 .floating-card i {
     font-size: 2rem;
-    color: var(--primary-color);
+    color: #60a5fa;
+    text-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
 }
 
 .card-1 {
@@ -380,7 +388,23 @@ body {
 /* Registration Section */
 .registration {
     padding: 5rem 0;
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.registration::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .registration-content {
@@ -394,13 +418,15 @@ body {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .registration-info p {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: #e2e8f0;
     margin-bottom: 2rem;
+    opacity: 0.9;
 }
 
 .benefits {
@@ -414,20 +440,52 @@ body {
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
-    color: var(--text-primary);
+    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(10px);
 }
 
 .benefit-item i {
-    color: var(--success-color);
+    color: #34d399;
     font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
 }
 
 /* Registration Form */
 .registration-form-container {
-    background: white;
+    background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
     overflow: hidden;
+    position: relative;
+}
+
+.registration-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6366f1, #06b6d4, #f59e0b, #6366f1);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .registration-form {
@@ -443,11 +501,13 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .form-header p {
-    color: var(--text-secondary);
+    color: #cbd5e1;
+    opacity: 0.9;
 }
 
 .form-group {
@@ -460,31 +520,44 @@ body {
     gap: 0.5rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: #f8fafc;
+    font-size: 1rem;
 }
 
 .form-group label i {
-    color: var(--primary-color);
+    color: #60a5fa;
+    text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
 }
 
 .form-group input {
     width: 100%;
     padding: 1rem;
     font-size: 1rem;
-    border: 2px solid var(--border-color);
+    border: 2px solid #475569;
     border-radius: var(--radius-lg);
     transition: all 0.3s ease;
-    background: white;
+    background: rgba(15, 23, 42, 0.8);
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+}
+
+.form-group input::placeholder {
+    color: #94a3b8;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: #60a5fa;
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 
+        0 0 0 3px rgba(96, 165, 250, 0.2),
+        0 0 20px rgba(96, 165, 250, 0.3);
+    transform: translateY(-2px);
 }
 
 .form-group input:invalid {
-    border-color: var(--danger-color);
+    border-color: #f87171;
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.2);
 }
 
 /* Radio Group */
@@ -509,38 +582,45 @@ body {
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    border: 2px solid var(--border-color);
+    border: 2px solid #475569;
     border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all 0.3s ease;
-    background: white;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
 }
 
 .radio-label:hover {
-    border-color: var(--primary-color);
-    background: #f8fafc;
+    border-color: #60a5fa;
+    background: rgba(15, 23, 42, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .radio-option input[type="radio"]:checked + .radio-label {
-    border-color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.05);
+    border-color: #60a5fa;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    box-shadow: 
+        0 0 0 1px rgba(96, 165, 250, 0.5),
+        0 8px 25px rgba(96, 165, 250, 0.2);
 }
 
 .radio-label i {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: #60a5fa;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
 }
 
 .radio-label div strong {
     display: block;
     font-weight: 600;
-    color: var(--text-primary);
+    color: #ffffff;
 }
 
 .radio-label div span {
     display: block;
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: #cbd5e1;
 }
 
 /* Checkbox */
@@ -615,30 +695,55 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     color: white;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 50%, #f59e0b 100%);
+    background-size: 200% 100%;
     border: none;
     border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
+    box-shadow: 
+        0 10px 20px rgba(99, 102, 241, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    background-position: 100% 0;
+    transform: translateY(-3px);
+    box-shadow: 
+        0 15px 30px rgba(99, 102, 241, 0.4),
+        0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+.btn-submit:hover::before {
+    left: 100%;
 }
 
 .btn-submit:disabled {
-    background: var(--text-light);
+    background: linear-gradient(135deg, #64748b, #475569);
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
 .form-footer {
     text-align: center;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid #475569;
+    color: #cbd5e1;
 }
 
 /* Modal */
