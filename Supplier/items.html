@@ -15,7 +15,10 @@
     </nav>
     <main class="w-full h-full py-10 px-4">
         <div class="bg-white h-full shadow-lg p-8">
+            <div class="mb-6 flex justify-between">
             <h2 class="text-3xl font-extrabold mb-8 text-blue-700">Items for Sale</h2>
+                <input id="searchBar" type="text" placeholder="Search items..." class="w-100 h-10 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
             <form id="itemsForm">
                 <div id="itemsContainer" class="space-y-4">
                     <div class="grid grid-cols-12 gap-4 item-row items-center bg-blue-50 rounded-lg p-4">
@@ -35,5 +38,6 @@
         </div>
     </main>
     <script src="./static/item.js"></script>
+    <script src="./static/search.js"></script>
 </body>
 </html> 
