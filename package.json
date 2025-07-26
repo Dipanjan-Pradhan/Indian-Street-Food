@@ -3,5 +3,12 @@
   "version": "1.0.0",
   "description": "Connecting Indian street food vendors with raw material suppliers",
   "author": "Terminators",
-  "license": "KIIT"
+  "license": "KIIT",
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./Supplier/static/input.css -o ./Supplier/static/output.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "tailwindcss": "^4.1.11"
+  }
 }
