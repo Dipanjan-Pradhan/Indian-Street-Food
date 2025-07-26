@@ -1,20 +1,7 @@
 {
-  "name": "web-hackathon-tutedude",
+  "name": "vendor-supplier-platform",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Dipanjan-Pradhan/Indian-Street-Food.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Dipanjan-Pradhan/Indian-Street-Food/issues"
-  },
-  "homepage": "https://github.com/Dipanjan-Pradhan/Indian-Street-Food#readme",
-  "description": ""
+  "description": "Connecting Indian street food vendors with raw material suppliers",
+  "author": "Terminators",
+  "license": "KIIT"
 }
