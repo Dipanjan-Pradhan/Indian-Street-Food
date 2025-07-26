@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Items</title>
+    <link href="./css/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/input.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen w-full">
+    <!-- Sticky Navigation Bar -->
+    <nav class="sticky top-0 w-full bg-white shadow z-10 py-4 px-8 flex items-center justify-between">
+        <span class="text-2xl font-bold text-blue-600">Indian Street Food - Supplier</span>
+        <span class="text-gray-500 text-lg">Items Management</span>
+    </nav>
+    <main class="w-full h-full py-10 px-4">
+        <div class="bg-white h-full shadow-lg p-8">
+            <h2 class="text-3xl font-extrabold mb-8 text-blue-700">Items for Sale</h2>
+            <form id="itemsForm">
+                <div id="itemsContainer" class="space-y-4">
+                    <div class="grid grid-cols-12 gap-4 item-row items-center bg-blue-50 rounded-lg p-4">
+                        <input type="text" name="itemName[]" required class="col-span-7 lg:col-span-9 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Item Name">
+                        <input type="number" name="itemPrice[]" required min="0" step="0.01" class="col-span-4 lg:col-span-2 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Price">
+                        <button type="button" onclick="removeItemRow(this)" class="col-span-1 text-red-500 hover:text-red-700 font-bold text-2xl transition">&times;</button>
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-8">
+                    <button type="button" onclick="addItemRow()" class="flex-1 bg-gradient-to-r from-green-400 to-green-600 text-white py-3 rounded-xl shadow hover:from-green-500 hover:to-green-700 transition text-lg font-semibold flex items-center justify-center gap-2">
+                        <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 4v16m8-8H4'/></svg>
+                        Add Item
+                    </button>
+                    <button type="submit" class="flex-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-xl shadow hover:from-blue-600 hover:to-blue-800 transition text-lg font-semibold">Submit</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        function addItemRow() {
+            const container = document.getElementById('itemsContainer');
+            const row = document.createElement('div');
+            row.className = 'grid grid-cols-12 gap-4 item-row items-center bg-blue-50 rounded-lg p-4';
+            row.innerHTML = `
+                <input type="text" name="itemName[]" required class="col-span-5 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Item Name">
+                <input type="number" name="itemPrice[]" required min="0" step="0.01" class="col-span-4 px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Price">
+                <button type="button" onclick="removeItemRow(this)" class="col-span-2 text-red-500 hover:text-red-700 font-bold text-2xl transition">&times;</button>
+            `;
+            container.appendChild(row);
+        }
+        function removeItemRow(btn) {
+            const row = btn.parentElement;
+            const container = document.getElementById('itemsContainer');
+            if (container.children.length > 1) {
+                container.removeChild(row);
+            }
+        }
+        document.getElementById('itemsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // You can handle form submission here (e.g., send data to backend or show a success message)
+            alert('Items submitted!');
+        });
+    </script>
+</body>
+</html> 
