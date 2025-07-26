@@ -75,7 +75,7 @@ function setupEventListeners() {
     }
     
     // Navbar scroll effect
-    window.addEventListener('scroll', handleNavbarScroll);
+    // window.addEventListener('scroll', handleNavbarScroll);
     
     // Keyboard navigation
     document.addEventListener('keydown', handleKeyboardNavigation);
@@ -332,16 +332,16 @@ function resetForm() {
 }
 
 // Navbar scroll effect
-function handleNavbarScroll() {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = '';
-    }
-}
+// function handleNavbarScroll() {
+//     const navbar = document.querySelector('.navbar');
+//     if (window.scrollY > 50) {
+//         navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+//         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+//     } else {
+//         navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+//         navbar.style.boxShadow = '';
+//     }
+// }
 
 // Keyboard navigation
 function handleKeyboardNavigation(e) {
