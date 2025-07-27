@@ -1,31 +1,103 @@
 // Street Food Search Data
 const streetFoodsData = [
-    'Vada Pav',
-    'Phuchka',
-    'Chole Bhature',
-    'Pav Bhaji',
-    'Samosa',
-    'Dosa',
-    'Idli',
-    'Chai',
-    'Jalebi',
-    'Kulfi',
-    'Biryani',
-    'Tandoori Chicken',
-    'Paratha',
-    'Naan',
-    'Rasgulla',
-    'Kachori',
-    'Chaat',
-    'Bhel Puri',
-    'Sev Puri',
-    'Dhokla',
+    'Vada Pav', 'Vada', 'Pav', 'Wada Pav', 'Wada', 'Batata Vada',
+    'Phuchka', 'Puchka', 'Pani Puri', 'Golgappa', 'Gupchup',
+    'Chole Bhature', 'Chole', 'Bhature', 'Chana Bhatura',
+    'Pav Bhaji', 'Bhaji Pav',
+    'Samosa', 'Samosas',
+    'Dosa', 'Masala Dosa', 'Plain Dosa',
+    'Idli', 'Idly',
+    'Chai', 'Tea', 'Masala Chai',
+    'Jalebi', 'Jilebi',
+    'Kulfi', 'Ice Cream Kulfi',
+    'Biryani', 'Chicken Biryani', 'Mutton Biryani', 'Veg Biryani',
+    'Tandoori Chicken', 'Tandoori',
+    'Paratha', 'Aloo Paratha', 'Paneer Paratha',
+    'Naan', 'Butter Naan', 'Garlic Naan',
+    'Rasgulla', 'Roshogolla',
+    'Kachori', 'Kachauri',
+    'Chaat', 'Chat', 'Papdi Chaat', 'Aloo Chaat',
+    'Bhel Puri', 'Bhelpuri',
+    'Sev Puri', 'Sevpuri',
+    'Dhokla', 'Khaman Dhokla',
     'Masala Dosa',
     'Uttapam',
-    'Poha',
+    'Poha', 'Kanda Poha',
     'Upma',
-    'Aloo Tikki'
+    'Aloo Tikki', 'Aloo Tiki'
 ];
+
+// Helper: Map similar names to main food slug
+const foodNameToSlug = {
+    'vada pav': 'vada-pav',
+    'vada': 'vada-pav',
+    'wada pav': 'vada-pav',
+    'wada': 'vada-pav',
+    'batata vada': 'vada-pav',
+    'phuchka': 'phuchka',
+    'puchka': 'phuchka',
+    'pani puri': 'phuchka',
+    'golgappa': 'phuchka',
+    'gupchup': 'phuchka',
+    'chole bhature': 'chole-bhature',
+    'chole': 'chole-bhature',
+    'bhature': 'chole-bhature',
+    'chana bhatura': 'chole-bhature',
+    'pav bhaji': 'pav-bhaji',
+    'bhaji pav': 'pav-bhaji',
+    'samosa': 'samosa',
+    'samosas': 'samosa',
+    'dosa': 'masala-dosa',
+    'masala dosa': 'masala-dosa',
+    'plain dosa': 'masala-dosa',
+    'idli': 'idli',
+    'idly': 'idli',
+    'chai': 'chai',
+    'tea': 'chai',
+    'masala chai': 'chai',
+    'jalebi': 'jalebi',
+    'jilebi': 'jalebi',
+    'kulfi': 'kulfi',
+    'ice cream kulfi': 'kulfi',
+    'biryani': 'biryani',
+    'chicken biryani': 'biryani',
+    'mutton biryani': 'biryani',
+    'veg biryani': 'biryani',
+    'tandoori chicken': 'tandoori-chicken',
+    'tandoori': 'tandoori-chicken',
+    'paratha': 'paratha',
+    'aloo paratha': 'paratha',
+    'paneer paratha': 'paratha',
+    'naan': 'naan',
+    'butter naan': 'naan',
+    'garlic naan': 'naan',
+    'rasgulla': 'rasgulla',
+    'roshogolla': 'rasgulla',
+    'kachori': 'kachori',
+    'kachauri': 'kachori',
+    'chaat': 'chaat',
+    'chat': 'chaat',
+    'papdi chaat': 'chaat',
+    'aloo chaat': 'chaat',
+    'bhel puri': 'bhel-puri',
+    'bhelpuri': 'bhel-puri',
+    'sev puri': 'sev-puri',
+    'sevpuri': 'sev-puri',
+    'dhokla': 'dhokla',
+    'khaman dhokla': 'dhokla',
+    'uttapam': 'uttapam',
+    'poha': 'poha',
+    'kanda poha': 'poha',
+    'upma': 'upma',
+    'aloo tikki': 'aloo-tikki',
+    'aloo tiki': 'aloo-tikki'
+};
+
+// Helper: Get main food slug from user input
+function getFoodSlugFromInput(input) {
+    const normalized = input.toLowerCase().replace(/\s+/g, ' ').trim();
+    return foodNameToSlug[normalized] || normalized.replace(/\s+/g, '-');
+}
 
 // Ingredients data for different foods
 const ingredientsData = {
@@ -230,6 +302,8 @@ const ingredientsData = {
         { name: 'Spices Mix', quantity: '50g', price: '₹20' },
         { name: 'Oil for frying', quantity: '1L', price: '₹120' }
     ]
+
+
 };
 
 // DOM Elements
