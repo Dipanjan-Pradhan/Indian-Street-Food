@@ -22,8 +22,43 @@ function removeItemRow(btn) {
         container.removeChild(row);
     }
 }
-document.getElementById('itemsForm').addEventListener('submit', function(e) {
+document.getElementById('itemsForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    // You can handle form submission here (e.g., send data to backend or show a success message)
-    alert('Items submitted!');
+    const items = [];
+    const rows = document.querySelectorAll('#itemsContainer .item-row');
+    rows.forEach(row => {
+        const name = row.querySelector('input[name="itemName[]"]').value;
+        const price = row.querySelector('input[name="itemPrice[]"]').value;
+        if (name && price) {
+            items.push({ itemname: name, price: parseFloat(price) });
+        }
+    });
+    // Send to backend
+    try {
+        const res = await fetch('/api/supplieritem', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(items)
+        });
+        if (res.ok) {
+            // Show a non-intrusive success message
+            let msg = document.createElement('div');
+            msg.textContent = 'Items saved successfully!';
+            msg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
+        } else {
+            let msg = document.createElement('div');
+            msg.textContent = 'Failed to save items.';
+            msg.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
+        }
+    } catch (err) {
+        let msg = document.createElement('div');
+        msg.textContent = 'Error saving items.';
+        msg.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 3000);
+    }
 });

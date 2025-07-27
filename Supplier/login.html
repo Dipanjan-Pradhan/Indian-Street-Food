@@ -35,31 +35,50 @@
                     <li>• Real-time updates</li>
                 </ul>
             </div>
-            <!-- Right Panel: Login Form -->
+            <!-- Right Panel: Login/Signup Form -->
             <div class="w-full md:w-1/2 flex items-center justify-center p-6">
-                <form class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-md">
+                <div class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-md">
                     <div class="flex flex-col items-center mb-6">
                         <div class="bg-blue-100 rounded-full p-3 mb-2 shadow">
                             <svg xmlns='http://www.w3.org/2000/svg' class='h-10 w-10 text-blue-500' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'/></svg>
                         </div>
-                        <h2 class="text-3xl font-extrabold text-blue-700 mb-1 tracking-tight">Supplier Login</h2>
-                        <p class="text-gray-500 text-sm">Welcome back! Please login to continue.</p>
+                        <h2 id="formTitle" class="text-3xl font-extrabold text-blue-700 mb-1 tracking-tight">Supplier Login</h2>
+                        <p class="text-gray-500 text-sm" id="formSubtitle">Welcome back! Please login to continue.</p>
                     </div>
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-700 mb-2 font-semibold">Store Name</label>
-                        <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Enter store Name">
+                    <form id="loginForm">
+                        <div class="mb-4">
+                            <label for="username" class="block text-gray-700 mb-2 font-semibold">Username</label>
+                            <input type="text" id="username" name="username" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Enter username">
+                        </div>
+                        <div class="mb-6">
+                            <label for="password" class="block text-gray-700 mb-2 font-semibold">Password</label>
+                            <input type="password" id="password" name="password" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Enter password">
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-lg shadow hover:from-blue-600 hover:to-blue-800 transition text-lg font-semibold">Login</button>
+                    </form>
+                    <form id="signupForm" class="hidden">
+                        <div class="mb-4">
+                            <label for="signup-username" class="block text-gray-700 mb-2 font-semibold">Username</label>
+                            <input type="text" id="signup-username" name="username" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Choose a username">
+                        </div>
+                        <div class="mb-4">
+                            <label for="signup-password" class="block text-gray-700 mb-2 font-semibold">Password</label>
+                            <input type="password" id="signup-password" name="password" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Create a password">
+                        </div>
+                        <div class="mb-6">
+                            <label for="signup-password2" class="block text-gray-700 mb-2 font-semibold">Confirm Password</label>
+                            <input type="password" id="signup-password2" name="password2" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Confirm password">
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-700 text-white py-3 rounded-lg shadow hover:from-green-600 hover:to-green-800 transition text-lg font-semibold">Sign Up</button>
+                    </form>
+                    <div class="mt-6 text-center">
+                        <span id="toggleText">Don't have an account?</span>
+                        <button id="toggleBtn" class="text-blue-600 font-semibold hover:underline ml-2">Sign Up</button>
                     </div>
-                    <div class="mb-4">
-                        <label for="gst" class="block text-gray-700 mb-2 font-semibold">GSTIN Number</label>
-                        <input type="text" id="gst" name="gst" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Enter GST Number">
-                    </div>
-                    <div class="mb-6">
-                        <label for="location" class="block text-gray-700 mb-2 font-semibold">Location</label>
-                        <input type="text" id="location" name="location" required class="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Enter Location">
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-lg shadow hover:from-blue-600 hover:to-blue-800 transition text-lg font-semibold">Login</button>
-                </form>
+                    <div id="formMessage" class="mt-4 text-center text-red-500 font-semibold hidden"></div>
+                </div>
             </div>
+            <!-- End Right Panel -->
         </div>
     </div>
     <footer class="w-full bg-gradient-to-r from-blue-800 to-indigo-900 text-white py-8 mt-12">
@@ -106,5 +125,6 @@
             animation: fade-in 0.7s cubic-bezier(0.4,0,0.2,1);
         }
     </style>
+    <script src="./static/login.js"></script>
 </body>
 </html>

@@ -64,6 +64,12 @@ app.post('/api/register', (req, res) => {
     res.json({ success: true, message: 'Registration successful (stub)' });
 });
 
+// API routes
+app.use('/api/supplier', require('./routes/supplier'));
+app.use('/api/supplieritem', require('./routes/supplieritem'));
+app.use('/api/user', require('./routes/user'));
+app.use('/api/vender', require('./routes/vender'));
+
 // Catch-all for 404
 app.use((req, res) => {
     res.status(404).send('Page not found');
