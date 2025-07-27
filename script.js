@@ -102,23 +102,36 @@ function handleFormSubmit(e) {
         timestamp: new Date().toISOString()
     };
     
-    // Simulate API call
-    setTimeout(() => {
-        // Log user data (in real app, this would be sent to server)
-        console.log('User Registration Data:', userData);
-        
-        // Show success message
-        showSuccessModal();
-        
-        // Reset form
-        resetForm();
-        
-        // Hide loading state
+    // Make real API call
+    fetch('/api/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+    })
+    .then(async response => {
+        if (response.ok) {
+            // Redirect to login page based on user type
+            if (userData.userType === 'supplier') {
+                window.location.href = '/Supplier/login';
+            } else if (userData.userType === 'vendor') {
+                window.location.href = '/Vendor/LandPage/vendor';
+            } else {
+                window.location.href = '/';
+            }
+        } else {
+            let msg = 'Registration failed. Please try again.';
+            if (response.status === 409) {
+                const data = await response.json();
+                msg = data.error || 'User already registered with this name, phone, and email.';
+            }
+            alert(msg);
+        }
         hideLoadingState();
-        
-        // Track registration event (analytics)
-        trackRegistration(userData.userType);
-    }, 2000);
+    })
+    .catch(error => {
+        alert('An error occurred. Please try again.');
+        hideLoadingState();
+    });
 }
 
 // Validate entire form
@@ -297,21 +310,7 @@ function hideLoadingState() {
     submitBtn.classList.remove('loading');
 }
 
-// Modal functions
-function showSuccessModal() {
-    successModal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    
-    // Focus on close button for accessibility
-    setTimeout(() => {
-        closeModalBtn.focus();
-    }, 100);
-}
-
-function closeModal() {
-    successModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
+// Remove all showSuccessModal, closeModal, and modal logic
 
 // Reset form
 function resetForm() {

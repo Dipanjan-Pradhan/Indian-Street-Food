@@ -5,7 +5,23 @@ const router = express.Router();
 // Create User
 router.post('/', async (req, res) => {
   try {
-    const user = new User(req.body);
+    // Map frontend fields to schema fields
+    const mapped = {
+      name: req.body.fullName,
+      phone: req.body.mobile,
+      email: req.body.email,
+      type: req.body.userType,
+    };
+    // Check for duplicate (all 3 fields must match)
+    const existing = await User.findOne({
+      name: mapped.name,
+      phone: mapped.phone,
+      email: mapped.email
+    });
+    if (existing) {
+      return res.status(409).json({ error: 'User already registered with this name, phone, and email.' });
+    }
+    const user = new User(mapped);
     await user.save();
     res.status(201).json(user);
   } catch (err) {

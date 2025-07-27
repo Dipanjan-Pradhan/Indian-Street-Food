@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('./db');
 
 const supplierSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -16,4 +16,4 @@ const supplierSchema = new mongoose.Schema({
 
 const Supplier = mongoose.models.Supplier || mongoose.model("Supplier", supplierSchema);
 
-export default Supplier;
+module.exports = Supplier;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('./db');
 
 const venderSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -15,4 +15,4 @@ const venderSchema = new mongoose.Schema({
 
 const Vender = mongoose.models.Vender || mongoose.model("Vender", venderSchema);
 
-export default Vender;
+module.exports = Vender;
