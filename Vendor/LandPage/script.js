@@ -1,633 +1,819 @@
-// Street Food Platform with AI Integration
-class StreetFoodPlatform {
-    constructor() {
-        this.vendorList = [];
-        this.currentStoryIndex = 0;
-        this.stories = [];
-        this.storyAutoSlide = null;
-        this.init();
-    }
+// Street Food Search Data
+const streetFoodsData = [
+    'Vada Pav',
+    'Phuchka',
+    'Chole Bhature',
+    'Pav Bhaji',
+    'Samosa',
+    'Dosa',
+    'Idli',
+    'Chai',
+    'Jalebi',
+    'Kulfi',
+    'Biryani',
+    'Tandoori Chicken',
+    'Paratha',
+    'Naan',
+    'Rasgulla',
+    'Kachori',
+    'Chaat',
+    'Bhel Puri',
+    'Sev Puri',
+    'Dhokla',
+    'Masala Dosa',
+    'Uttapam',
+    'Poha',
+    'Upma',
+    'Aloo Tikki'
+];
 
-    init() {
-        this.setupEventListeners();
-        this.loadSuccessStories();
-        this.setupNavigation();
-        this.setupModals();
-        this.setupScrollAnimations();
-    }
+// Ingredients data for different foods
+const ingredientsData = {
+    'vada-pav': [
+        { name: 'Potatoes', quantity: '1kg', price: '₹40' },
+        { name: 'Bread Buns', quantity: '20 pieces', price: '₹60' },
+        { name: 'Gram Flour (Besan)', quantity: '500g', price: '₹80' },
+        { name: 'Green Chilies', quantity: '100g', price: '₹20' },
+        { name: 'Ginger', quantity: '100g', price: '₹25' },
+        { name: 'Turmeric Powder', quantity: '100g', price: '₹30' },
+        { name: 'Oil for frying', quantity: '1L', price: '₹120' },
+        { name: 'Hing (Asafoetida)', quantity: '50g', price: '₹40' },
+        { name: 'Coriander Seeds', quantity: '100g', price: '₹35' },
+        { name: 'Tamarind', quantity: '200g', price: '₹45' }
+    ],
+    'phuchka': [
+        { name: 'Semolina (Suji)', quantity: '500g', price: '₹60' },
+        { name: 'Tamarind', quantity: '300g', price: '₹65' },
+        { name: 'Boiled Potatoes', quantity: '1kg', price: '₹40' },
+        { name: 'Chickpeas', quantity: '500g', price: '₹70' },
+        { name: 'Black Salt', quantity: '100g', price: '₹25' },
+        { name: 'Chaat Masala', quantity: '100g', price: '₹50' },
+        { name: 'Mint Leaves', quantity: '100g', price: '₹20' },
+        { name: 'Green Chilies', quantity: '100g', price: '₹20' },
+        { name: 'Jaggery', quantity: '200g', price: '₹40' },
+        { name: 'Oil for frying', quantity: '500ml', price: '₹60' }
+    ],
+    'chole-bhature': [
+        { name: 'Chickpeas (Chole)', quantity: '1kg', price: '₹120' },
+        { name: 'All Purpose Flour', quantity: '1kg', price: '₹50' },
+        { name: 'Yogurt', quantity: '500ml', price: '₹40' },
+        { name: 'Onions', quantity: '1kg', price: '₹30' },
+        { name: 'Tomatoes', quantity: '1kg', price: '₹50' },
+        { name: 'Ginger-Garlic Paste', quantity: '200g', price: '₹60' },
+        { name: 'Chole Masala', quantity: '100g', price: '₹80' },
+        { name: 'Oil', quantity: '1L', price: '₹120' },
+        { name: 'Baking Powder', quantity: '100g', price: '₹30' },
+        { name: 'Fresh Coriander', quantity: '100g', price: '₹25' }
+    ],
+    'chai': [
+        { name: 'Tea Leaves', quantity: '500g', price: '₹200' },
+        { name: 'Milk', quantity: '5L', price: '₹250' },
+        { name: 'Sugar', quantity: '1kg', price: '₹45' },
+        { name: 'Cardamom', quantity: '100g', price: '₹400' },
+        { name: 'Ginger', quantity: '200g', price: '₹50' },
+        { name: 'Cloves', quantity: '50g', price: '₹150' },
+        { name: 'Cinnamon Sticks', quantity: '50g', price: '₹120' },
+        { name: 'Black Pepper', quantity: '50g', price: '₹180' }
+    ],
+    'samosa': [
+        { name: 'All Purpose Flour', quantity: '1kg', price: '₹50' },
+        { name: 'Potatoes', quantity: '2kg', price: '₹80' },
+        { name: 'Green Peas', quantity: '500g', price: '₹60' },
+        { name: 'Cumin Seeds', quantity: '100g', price: '₹80' },
+        { name: 'Coriander Seeds', quantity: '100g', price: '₹35' },
+        { name: 'Garam Masala', quantity: '100g', price: '₹60' },
+        { name: 'Oil for frying', quantity: '2L', price: '₹240' },
+        { name: 'Green Chilies', quantity: '100g', price: '₹20' },
+        { name: 'Ginger', quantity: '100g', price: '₹25' },
+        { name: 'Fresh Coriander', quantity: '100g', price: '₹25' }
+    ]
+};
 
-    setupEventListeners() {
-        // Search functionality
-        const searchInput = document.getElementById('foodSearch');
-        const searchBtn = document.getElementById('searchBtn');
-        
-        searchInput.addEventListener('input', this.debounce(this.handleSearchInput.bind(this), 300));
-        searchBtn.addEventListener('click', this.handleSearch.bind(this));
-        searchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') this.handleSearch();
-        });
+// DOM Elements
+const searchInput = document.getElementById('foodSearch');
+const searchSuggestions = document.getElementById('searchSuggestions');
+const searchBtn = document.getElementById('searchBtn');
 
-        // Food item clicks
-        document.querySelectorAll('.food-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const foodName = item.dataset.food;
-                this.openVendorModal(foodName);
-            });
-        });
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSearch();
+    initializeAnimations();
+    initializeCarousel();
+    initializeSuccessStories();
+});
 
-        // Navigation buttons
-        document.getElementById('vendorListBtn').addEventListener('click', this.openVendorListModal.bind(this));
-        document.getElementById('getStartedBtn').addEventListener('click', this.scrollToSearch.bind(this));
-        
-        // Story navigation
-        document.getElementById('prevStory').addEventListener('click', this.prevStory.bind(this));
-        document.getElementById('nextStory').addEventListener('click', this.nextStory.bind(this));
-
-        // Mobile menu
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', this.handleNavbarScroll.bind(this));
-    }
-
-    handleNavbarScroll() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+// Search Functionality
+function initializeSearch() {
+    searchInput.addEventListener('input', handleSearchInput);
+    searchInput.addEventListener('focus', showSuggestions);
+    searchInput.addEventListener('blur', hideSuggestions);
+    searchBtn.addEventListener('click', handleSearch);
+    
+    // Handle Enter key press
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            handleSearch();
         }
-    }
+    });
+}
 
-    async handleSearchInput(e) {
-        const query = e.target.value.toLowerCase().trim();
+function handleSearchInput(e) {
+    const query = e.target.value.toLowerCase().trim();
+    
+    if (query.length === 0) {
+        hideSuggestions();
+        return;
+    }
+    
+    const filteredFoods = streetFoodsData.filter(food => 
+        food.toLowerCase().includes(query)
+    );
+    
+    displaySuggestions(filteredFoods);
+}
+
+function displaySuggestions(suggestions) {
+    searchSuggestions.innerHTML = '';
+    
+    if (suggestions.length === 0) {
+        hideSuggestions();
+        return;
+    }
+    
+    suggestions.slice(0, 8).forEach(suggestion => {
+        const suggestionElement = createSuggestionElement(suggestion);
+        searchSuggestions.appendChild(suggestionElement);
+    });
+    
+    showSuggestions();
+}
+
+function createSuggestionElement(suggestion) {
+    const div = document.createElement('div');
+    div.className = 'suggestion-item';
+    div.textContent = suggestion;
+    
+    div.addEventListener('mousedown', function(e) {
+        e.preventDefault(); // Prevent input blur
+        selectSuggestion(suggestion);
+    });
+    
+    return div;
+}
+
+function selectSuggestion(suggestion) {
+    searchInput.value = suggestion;
+    hideSuggestions();
+    handleSearch();
+}
+
+function showSuggestions() {
+    searchSuggestions.classList.add('active');
+}
+
+function hideSuggestions() {
+    setTimeout(() => {
+        searchSuggestions.classList.remove('active');
+    }, 150);
+}
+
+function handleSearch() {
+    const searchTerm = searchInput.value.trim();
+    
+    if (!searchTerm) {
+        showNotification('Please enter a food item to search', 'warning');
+        return;
+    }
+    
+    // Convert search term to URL-friendly format
+    const foodSlug = searchTerm.toLowerCase().replace(/\s+/g, '-');
+    
+    // Store search data for the ingredients page
+    const searchData = {
+        foodName: searchTerm,
+        foodSlug: foodSlug,
+        timestamp: Date.now()
+    };
+    
+    // Store in localStorage for the ingredients page
+    try {
+        localStorage.setItem('selectedFood', JSON.stringify(searchData));
+    } catch (e) {
+        // Fallback if localStorage is not available
+        console.log('Using fallback storage method');
+    }
+    
+    // Show loading animation
+    showSearchAnimation();
+    
+    // Simulate API call delay
+    setTimeout(() => {
+        // Redirect to ingredients page
+        const redirectUrl = `vendor/ingredients.html?food=${encodeURIComponent(foodSlug)}`;
         
-        if (query.length < 2) {
-            this.hideSuggestions();
-            return;
-        }
+        // For demo purposes, we'll show a modal instead of redirecting
+        showIngredientsModal(searchTerm, foodSlug);
+    }, 1500);
+}
 
-        // For demo purposes, we'll use a predefined list for suggestions
-        // In production, this would call an AI API
-        const suggestions = await this.getAISuggestions(query);
-        this.showSuggestions(suggestions);
-    }
+function showSearchAnimation() {
+    const originalText = searchBtn.innerHTML;
+    searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+    searchBtn.disabled = true;
+    
+    setTimeout(() => {
+        searchBtn.innerHTML = originalText;
+        searchBtn.disabled = false;
+    }, 1500);
+}
 
-    async getAISuggestions(query) {
-        // Simulate AI API call with popular street foods
-        const popularFoods = [
-            'Pizza', 'Burger', 'Tacos', 'Hot Dog', 'Ramen', 'Sushi', 'Kebab', 
-            'Falafel', 'Crepe', 'Gyros', 'Bao', 'Empanada', 'Churros', 'Pretzel',
-            'Fish and Chips', 'Poutine', 'Corn Dog', 'Shawarma', 'Pad Thai', 'Pho'
-        ];
-        
-        return popularFoods.filter(food => 
-            food.toLowerCase().includes(query)
-        ).slice(0, 6);
-    }
+function showIngredientsModal(foodName, foodSlug) {
+    const ingredients = ingredientsData[foodSlug] || getDefaultIngredients(foodName);
+    
+    const modal = createIngredientsModal(foodName, ingredients);
+    document.body.appendChild(modal);
+    
+    // Animate modal appearance
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+}
 
-    showSuggestions(suggestions) {
-        const container = document.getElementById('suggestions');
-        container.innerHTML = '';
-        
-        if (suggestions.length === 0) {
-            container.style.display = 'none';
-            return;
-        }
-
-        suggestions.forEach(suggestion => {
-            const item = document.createElement('div');
-            item.className = 'suggestion-item';
-            item.textContent = suggestion;
-            item.addEventListener('click', () => {
-                document.getElementById('foodSearch').value = suggestion;
-                this.hideSuggestions();
-                this.handleSearch();
-            });
-            container.appendChild(item);
-        });
-
-        container.style.display = 'block';
-    }
-
-    hideSuggestions() {
-        document.getElementById('suggestions').style.display = 'none';
-    }
-
-    async handleSearch() {
-        const query = document.getElementById('foodSearch').value.trim();
-        if (!query) return;
-
-        this.showLoading();
-        
-        try {
-            // Simulate AI API call to get food information
-            const foodData = await this.getFoodDataFromAI(query);
-            
-            if (foodData) {
-                this.hideLoading();
-                this.openVendorModal(query, foodData);
-            } else {
-                this.hideLoading();
-                this.showNotFoundMessage(query);
-            }
-        } catch (error) {
-            this.hideLoading();
-            this.showErrorMessage();
-        }
-        
-        this.hideSuggestions();
-    }
-
-    async getFoodDataFromAI(foodName) {
-        // Simulate AI API response
-        // In production, this would call OpenAI API or similar
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const mockData = {
-                    ingredients: this.generateIngredients(foodName),
-                    tips: this.generateBusinessTips(foodName),
-                    popularity: this.generatePopularityInfo(foodName)
-                };
-                resolve(mockData);
-            }, 1500);
-        });
-    }
-
-    generateIngredients(foodName) {
-        const ingredientMap = {
-            'pizza': ['Pizza Dough', 'Tomato Sauce', 'Mozzarella Cheese', 'Olive Oil', 'Basil', 'Pepperoni', 'Mushrooms', 'Bell Peppers'],
-            'burger': ['Burger Buns', 'Ground Beef', 'Lettuce', 'Tomato', 'Onion', 'Cheese', 'Pickles', 'Condiments'],
-            'tacos': ['Corn Tortillas', 'Ground Meat', 'Onions', 'Cilantro', 'Lime', 'Salsa', 'Cheese', 'Lettuce'],
-            'ramen': ['Ramen Noodles', 'Broth Base', 'Soy Sauce', 'Miso Paste', 'Green Onions', 'Eggs', 'Pork', 'Nori'],
-            'default': ['Main Ingredient', 'Spices', 'Oil', 'Salt', 'Vegetables', 'Herbs', 'Sauce Base', 'Garnish']
-        };
-        
-        return ingredientMap[foodName.toLowerCase()] || ingredientMap['default'];
-    }
-
-    generateBusinessTips(foodName) {
-        return [
-            'Start with high-quality ingredients for better taste',
-            'Maintain consistent portion sizes',
-            'Keep your cooking area clean and hygienic',
-            'Price competitively but ensure profit margins',
-            'Build relationships with regular customers',
-            'Consider peak hours for maximum sales',
-            'Always have backup ingredients ready',
-            'Get proper food handling permits'
-        ];
-    }
-
-    generatePopularityInfo(foodName) {
-        const regions = ['North America', 'Europe', 'Asia', 'South America', 'Middle East', 'Africa'];
-        const randomRegion = regions[Math.floor(Math.random() * regions.length)];
-        
-        return {
-            region: `Popular in ${randomRegion}`,
-            description: `${foodName} is beloved for its unique flavors and accessibility. Perfect for street vendors looking to serve quality food quickly.`
-        };
-    }
-
-    showLoading() {
-        document.getElementById('loadingSpinner').classList.remove('hidden');
-    }
-
-    hideLoading() {
-        document.getElementById('loadingSpinner').classList.add('hidden');
-    }
-
-    showNotFoundMessage(query) {
-        const resultsContainer = document.getElementById('searchResults');
-        resultsContainer.innerHTML = `
-            <div class="not-found">
-                <i class="fas fa-search"></i>
-                <h3>Food Not Found</h3>
-                <p>Sorry, we couldn't find information about "${query}". Try searching for popular foods like Pizza, Burger, Tacos, or Ramen.</p>
+function createIngredientsModal(foodName, ingredients) {
+    const modal = document.createElement('div');
+    modal.className = 'ingredients-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ingredients for ${foodName}</h2>
+                <button class="close-modal">&times;</button>
             </div>
-        `;
-        resultsContainer.classList.remove('hidden');
-    }
-
-    showErrorMessage() {
-        const resultsContainer = document.getElementById('searchResults');
-        resultsContainer.innerHTML = `
-            <div class="not-found">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>Something went wrong</h3>
-                <p>Please try again later. Our AI service might be temporarily unavailable.</p>
-            </div>
-        `;
-        resultsContainer.classList.remove('hidden');
-    }
-
-    openVendorModal(foodName, foodData = null) {
-        const modal = document.getElementById('vendorModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-
-        modalTitle.textContent = `Start Your ${foodName} Vendor Journey`;
-
-        if (foodData) {
-            modalBody.innerHTML = `
-                <div class="vendor-info">
-                    <div class="ingredients-section">
-                        <h4><i class="fas fa-shopping-basket"></i> Key Ingredients</h4>
-                        <div class="ingredients-list">
-                            ${foodData.ingredients.map(ingredient => 
-                                `<span class="ingredient-tag">${ingredient}</span>`
-                            ).join('')}
-                        </div>
-                    </div>
-                    <div class="business-tips">
-                        <h4><i class="fas fa-lightbulb"></i> Business Tips</h4>
-                        <ul>
-                            ${foodData.tips.map(tip => `<li>${tip}</li>`).join('')}
-                        </ul>
-                    </div>
-                </div>
-                <div class="popularity-info">
-                    <h4><i class="fas fa-globe"></i> Market Information</h4>
-                    <p><strong>Region:</strong> ${foodData.popularity.region}</p>
-                    <p>${foodData.popularity.description}</p>
-                </div>
-                <button class="add-to-list-btn" onclick="streetFoodPlatform.addToVendorList('${foodName}')">
-                    <i class="fas fa-plus"></i> Add to My Vendor List
-                </button>
-            `;
-        } else {
-            // For predefined foods from carousel
-            modalBody.innerHTML = `
-                <div class="loading-food-data">
-                    <div class="spinner"></div>
-                    <p>Loading ${foodName} information...</p>
-                </div>
-            `;
-            
-            // Simulate loading data
-            setTimeout(() => {
-                this.getFoodDataFromAI(foodName).then(data => {
-                    this.openVendorModal(foodName, data);
-                });
-            }, 1000);
-        }
-
-        modal.style.display = 'block';
-    }
-
-    addToVendorList(foodName) {
-        if (!this.vendorList.includes(foodName)) {
-            this.vendorList.push(foodName);
-            this.updateVendorListCount();
-            this.showToast(`${foodName} added to your vendor list!`, 'success');
-            
-            // Update button
-            const btn = event.target;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> Added to List!';
-            btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
-            
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.style.background = 'linear-gradient(135deg, var(--accent-color), var(--secondary-color))';
-            }, 2000);
-        } else {
-            this.showToast(`${foodName} is already in your list!`, 'info');
-        }
-    }
-
-    updateVendorListCount() {
-        document.getElementById('listCount').textContent = this.vendorList.length;
-    }
-
-    openVendorListModal() {
-        const modal = document.getElementById('vendorListModal');
-        const modalBody = document.getElementById('vendorListBody');
-
-        if (this.vendorList.length === 0) {
-            modalBody.innerHTML = `
-                <div class="empty-list">
-                    <i class="fas fa-list" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 20px;"></i>
-                    <h3>Your vendor list is empty</h3>
-                    <p>Start exploring foods and add them to your list to begin your vendor journey!</p>
-                </div>
-            `;
-        } else {
-            modalBody.innerHTML = `
-                <div class="vendor-list">
-                    ${this.vendorList.map(food => `
-                        <div class="vendor-list-item">
-                            <div>
-                                <h4>${food}</h4>
-                                <p>Ready to start your ${food} business</p>
-                            </div>
-                            <button class="remove-btn" onclick="streetFoodPlatform.removeFromVendorList('${food}')">
-                                <i class="fas fa-trash"></i> Remove
-                            </button>
+            <div class="modal-body">
+                <p class="modal-subtitle">Select the ingredients you need:</p>
+                <div class="ingredients-grid">
+                    ${ingredients.map((ingredient, index) => `
+                        <div class="ingredient-item">
+                            <input type="checkbox" id="ingredient-${index}" class="ingredient-checkbox" data-ingredient='${JSON.stringify(ingredient)}'>
+                            <label for="ingredient-${index}" class="ingredient-label">
+                                <div class="ingredient-info">
+                                    <h4>${ingredient.name}</h4>
+                                    <p>Quantity: ${ingredient.quantity}</p>
+                                    <p class="price">Price: ${ingredient.price}</p>
+                                </div>
+                            </label>
                         </div>
                     `).join('')}
                 </div>
-                <div style="text-align: center; margin-top: 30px;">
-                    <button class="add-to-list-btn" onclick="streetFoodPlatform.exportVendorList()">
-                        <i class="fas fa-download"></i> Export My List
+                <div class="modal-actions">
+                    <button class="find-suppliers-btn" onclick="findSuppliers()">
+                        <i class="fas fa-search"></i>
+                        Find Suppliers
                     </button>
                 </div>
-            `;
-        }
-
-        modal.style.display = 'block';
-    }
-
-    removeFromVendorList(foodName) {
-        this.vendorList = this.vendorList.filter(food => food !== foodName);
-        this.updateVendorListCount();
-        this.openVendorListModal(); // Refresh the modal
-        this.showToast(`${foodName} removed from your list`, 'info');
-    }
-
-    exportVendorList() {
-        const dataStr = JSON.stringify(this.vendorList, null, 2);
-        const dataBlob = new Blob([dataStr], {type: 'application/json'});
-        const url = URL.createObjectURL(dataBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'my-vendor-list.json';
-        link.click();
-        URL.revokeObjectURL(url);
-        this.showToast('Vendor list exported successfully!', 'success');
-    }
-
-    async loadSuccessStories() {
-        // Simulate loading real success stories from web search or API
-        // In production, this would call a web search API or database
-        const stories = await this.fetchSuccessStories();
-        this.stories = stories;
-        this.renderStories();
-        this.startStoryAutoSlide();
-    }
-
-    async fetchSuccessStories() {
-        // Simulated API call - in production, use web search API
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const mockStories = [
-                    {
-                        name: "Maria Rodriguez",
-                        location: "Los Angeles, CA",
-                        business: "Taco Truck",
-                        image: "https://images.unsplash.com/photo-1494790108755-2616b612b647?w=100&h=100&fit=crop&crop=face",
-                        quote: "Started with $2000 and one taco truck. Now I own 5 trucks and serve 1000+ customers daily!",
-                        revenue: "$50K/month"
-                    },
-                    {
-                        name: "Ahmed Hassan",
-                        location: "New York, NY",
-                        business: "Halal Cart",
-                        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-                        quote: "From street vendor to restaurant owner. This platform helped me understand ingredients and pricing.",
-                        revenue: "$75K/month"
-                    },
-                    {
-                        name: "Lisa Chen",
-                        location: "San Francisco, CA",
-                        business: "Bao Stand",
-                        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-                        quote: "AI-powered ingredient sourcing reduced my costs by 30%. Now expanding to 3 locations!",
-                        revenue: "$40K/month"
-                    },
-                    {
-                        name: "Roberto Silva",
-                        location: "Miami, FL",
-                        business: "Empanada Cart",
-                        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-                        quote: "Found my authentic recipes and suppliers here. Customers love the traditional taste!",
-                        revenue: "$35K/month"
-                    },
-                    {
-                        name: "Priya Patel",
-                        location: "Chicago, IL",
-                        business: "Indian Street Food",
-                        image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=face",
-                        quote: "Transformed my hobby into a thriving business. The ingredient insights were game-changing!",
-                        revenue: "$45K/month"
-                    }
-                ];
-                resolve(mockStories);
-            }, 1000);
-        });
-    }
-
-    renderStories() {
-        const track = document.getElementById('storiesTrack');
-        const indicators = document.getElementById('storyIndicators');
-        
-        track.innerHTML = this.stories.map(story => `
-            <div class="story-card">
-                <div class="story-image">
-                    <img src="${story.image}" alt="${story.name}">
-                </div>
-                <div class="story-content">
-                    <h3>${story.name}</h3>
-                    <p class="location">${story.location}</p>
-                    <p class="business-info">${story.business} • ${story.revenue}</p>
-                    <blockquote>${story.quote}</blockquote>
-                </div>
             </div>
-        `).join('');
-
-        indicators.innerHTML = this.stories.map((_, index) => `
-            <div class="story-indicator ${index === 0 ? 'active' : ''}" 
-                 onclick="streetFoodPlatform.goToStory(${index})"></div>
-        `).join('');
-    }
-
-    startStoryAutoSlide() {
-        this.storyAutoSlide = setInterval(() => {
-            this.nextStory();
-        }, 6000); // Change story every 6 seconds
-    }
-
-    stopStoryAutoSlide() {
-        if (this.storyAutoSlide) {
-            clearInterval(this.storyAutoSlide);
-        }
-    }
-
-    nextStory() {
-        this.currentStoryIndex = (this.currentStoryIndex + 1) % this.stories.length;
-        this.updateStoriesDisplay();
-    }
-
-    prevStory() {
-        this.currentStoryIndex = this.currentStoryIndex === 0 ? 
-            this.stories.length - 1 : this.currentStoryIndex - 1;
-        this.updateStoriesDisplay();
-    }
-
-    goToStory(index) {
-        this.currentStoryIndex = index;
-        this.updateStoriesDisplay();
-        this.stopStoryAutoSlide();
-        this.startStoryAutoSlide(); // Restart auto-slide
-    }
-
-    updateStoriesDisplay() {
-        const track = document.getElementById('storiesTrack');
-        const translateX = -this.currentStoryIndex * (350 + 30); // card width + gap
-        track.style.transform = `translateX(${translateX}px)`;
-
-        // Update indicators
-        document.querySelectorAll('.story-indicator').forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === this.currentStoryIndex);
-        });
-    }
-
-    setupModals() {
-        // Close modal events
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('vendorModal').style.display = 'none';
-        });
-
-        document.getElementById('closeVendorListModal').addEventListener('click', () => {
-            document.getElementById('vendorListModal').style.display = 'none';
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            const vendorModal = document.getElementById('vendorModal');
-            const listModal = document.getElementById('vendorListModal');
-            
-            if (e.target === vendorModal) {
-                vendorModal.style.display = 'none';
-            }
-            if (e.target === listModal) {
-                listModal.style.display = 'none';
-            }
-        });
-    }
-
-    setupNavigation() {
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    }
-
-    scrollToSearch() {
-        document.getElementById('search').scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-
-    setupScrollAnimations() {
-        // Parallax effect for carousel
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.carousel-row');
-            
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.3 + (index * 0.1);
-                const yPos = -(scrolled * speed);
-                element.style.transform = `translateY(${yPos}px)`;
-            });
-        });
-
-        // Pause carousel on hover
-        document.querySelectorAll('.carousel-row').forEach(row => {
-            row.addEventListener('mouseenter', () => {
-                row.style.animationPlayState = 'paused';
-            });
-            
-            row.addEventListener('mouseleave', () => {
-                row.style.animationPlayState = 'running';
-            });
-        });
-    }
-
-    showToast(message, type = 'info') {
-        // Remove existing toast
-        const existingToast = document.querySelector('.toast');
-        if (existingToast) {
-            existingToast.remove();
-        }
-        
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        toast.innerHTML = `
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-            <span>${message}</span>
-        `;
-        
-        // Toast styles
-        toast.style.cssText = `
+        </div>
+    `;
+    
+    // Add modal styles
+    const modalStyles = `
+        .ingredients-modal {
             position: fixed;
-            top: 100px;
-            right: 20px;
-            background: ${type === 'success' ? 'linear-gradient(135deg, #27ae60, #2ecc71)' : 'linear-gradient(135deg, #3498db, #2980b9)'};
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .ingredients-modal.active {
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
             color: white;
-            padding: 15px 25px;
-            border-radius: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 1000;
-            font-weight: 500;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #555;
+        }
+        
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .ingredient-item {
+            position: relative;
+        }
+        
+        .ingredient-checkbox {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .ingredient-label {
+            display: block;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+        
+        .ingredient-checkbox:checked + .ingredient-label {
+            border-color: #ff6b35;
+            background: linear-gradient(135deg, #fff5f0, #ffe8d6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2);
+        }
+        
+        .ingredient-info h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .ingredient-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .ingredient-info .price {
+            font-weight: 600;
+            color: #ff6b35;
+            font-size: 1.1rem;
+        }
+        
+        .modal-actions {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .find-suppliers-btn {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
             gap: 10px;
-        `;
+        }
         
-        document.body.appendChild(toast);
+        .find-suppliers-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.3);
+        }
         
-        // Animate in
-        setTimeout(() => {
-            toast.style.transform = 'translateX(0)';
-        }, 10);
-        
-        // Animate out and remove
-        setTimeout(() => {
-            toast.style.transform = 'translateX(400px)';
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            }, 300);
-        }, 3000);
+        .find-suppliers-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+    `;
+    
+    // Add styles to document if not already added
+    if (!document.getElementById('modal-styles')) {
+        const styleSheet = document.createElement('style');
+        styleSheet.id = 'modal-styles';
+        styleSheet.textContent = modalStyles;
+        document.head.appendChild(styleSheet);
     }
-
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
+    
+    // Add event listeners
+    const closeBtn = modal.querySelector('.close-modal');
+    closeBtn.addEventListener('click', () => closeModal(modal));
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal(modal);
+        }
+    });
+    
+    return modal;
 }
 
-// Initialize the platform
-const streetFoodPlatform = new StreetFoodPlatform();
+function closeModal(modal) {
+    modal.classList.remove('active');
+    setTimeout(() => {
+        document.body.removeChild(modal);
+    }, 300);
+}
 
-// Global functions for HTML onclick events
-window.streetFoodPlatform = streetFoodPlatform;
+function findSuppliers() {
+    const checkboxes = document.querySelectorAll('.ingredient-checkbox:checked');
+    
+    if (checkboxes.length === 0) {
+        showNotification('Please select at least one ingredient', 'warning');
+        return;
+    }
+    
+    const selectedIngredients = Array.from(checkboxes).map(checkbox => {
+        return JSON.parse(checkbox.dataset.ingredient);
+    });
+    
+    // Store selected ingredients
+    try {
+        localStorage.setItem('selectedIngredients', JSON.stringify(selectedIngredients));
+    } catch (e) {
+        console.log('Using fallback storage method');
+    }
+    
+    // Show success message and simulate redirect
+    showNotification(`Found suppliers for ${selectedIngredients.length} ingredients! Redirecting...`, 'success');
+    
+    setTimeout(() => {
+        // In a real application, this would redirect to: /SupplierInfo/ingredient-suppliers.html
+        showNotification('Redirect to supplier page would happen here', 'info');
+        closeModal(document.querySelector('.ingredients-modal'));
+    }, 2000);
+}
+
+function getDefaultIngredients(foodName) {
+    return [
+        { name: 'Basic Ingredient 1', quantity: '500g', price: '₹50' },
+        { name: 'Basic Ingredient 2', quantity: '1kg', price: '₹80' },
+        { name: 'Spices Mix', quantity: '200g', price: '₹120' },
+        { name: 'Oil', quantity: '500ml', price: '₹60' }
+    ];
+}
+
+// Animation Initialization
+function initializeAnimations() {
+    // Animate elements on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe sections that need animation
+    const animatedElements = document.querySelectorAll('.story-card, .food-card, .discover-section, .success-section');
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
+// Carousel Functionality
+function initializeCarousel() {
+    const carouselRows = document.querySelectorAll('.carousel-row');
+    
+    carouselRows.forEach(row => {
+        // Clone food items for infinite scroll
+        const foodItems = row.querySelectorAll('.food-item');
+        foodItems.forEach(item => {
+            const clone = item.cloneNode(true);
+            row.appendChild(clone);
+        });
+    });
+    
+    // Pause animation on hover
+    carouselRows.forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            row.style.animationPlayState = 'paused';
+        });
+        
+        row.addEventListener('mouseleave', () => {
+            row.style.animationPlayState = 'running';
+        });
+    });
+}
+
+// Success Stories Animation
+function initializeSuccessStories() {
+    const storyCards = document.querySelectorAll('.story-card');
+    
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px'
+    };
+    
+    const storyObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('animate');
+                    
+                    // Start typewriter effect for quote
+                    const quote = entry.target.querySelector('.quote');
+                    if (quote && quote.dataset.typewriter !== undefined) {
+                        startTypewriter(quote);
+                    }
+                }, index * 200);
+            }
+        });
+    }, observerOptions);
+    
+    storyCards.forEach(card => {
+        storyObserver.observe(card);
+    });
+}
+
+function startTypewriter(element) {
+    const text = element.textContent;
+    element.textContent = '';
+    element.style.opacity = '1';
+    
+    let index = 0;
+    const typeInterval = setInterval(() => {
+        if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+        } else {
+            clearInterval(typeInterval);
+        }
+    }, 50);
+}
+
+// Notification System
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => {
+        notification.remove();
+    });
+    
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Add notification styles if not already added
+    if (!document.getElementById('notification-styles')) {
+        const notificationStyles = `
+            .notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 10001;
+                animation: slideInRight 0.3s ease;
+                max-width: 300px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            .notification-info {
+                background: linear-gradient(135deg, #3498db, #2980b9);
+            }
+            
+            .notification-success {
+                background: linear-gradient(135deg, #2ecc71, #27ae60);
+            }
+            
+            .notification-warning {
+                background: linear-gradient(135deg, #f39c12, #e67e22);
+            }
+            
+            .notification-error {
+                background: linear-gradient(135deg, #e74c3c, #c0392b);
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        
+        const styleSheet = document.createElement('style');
+        styleSheet.id = 'notification-styles';
+        styleSheet.textContent = notificationStyles;
+        document.head.appendChild(styleSheet);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove notification
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
+
+// Smooth scrolling for internal links
+document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A' && e.target.getAttribute('href').startsWith('#')) {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+});
+
+// Performance optimization: Lazy load images
+function initializeLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Initialize lazy loading when DOM is ready
+document.addEventListener('DOMContentLoaded', initializeLazyLoading);
+
+// Add scroll-based animations for better user experience
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('.header');
+    
+    if (parallax) {
+        const speed = scrolled * 0.5;
+        parallax.style.transform = `translate3d(0, ${speed}px, 0)`;
+    }
+});
+
+// Add loading screen functionality
+function showLoadingScreen() {
+    const loadingScreen = document.createElement('div');
+    loadingScreen.id = 'loading-screen';
+    loadingScreen.innerHTML = `
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Loading Street Food Ingredients...</h2>
+            <p>Preparing the best ingredients for your street food business</p>
+        </div>
+    `;
+    
+    const loadingStyles = `
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10002;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-content {
+            text-align: center;
+            color: #2c3e50;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(44, 62, 80, 0.3);
+            border-left: 4px solid #2c3e50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-content h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .loading-content p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+    `;
+    
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = loadingStyles;
+    document.head.appendChild(styleSheet);
+    
+    document.body.appendChild(loadingScreen);
+    
+    // Hide loading screen after content is loaded
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                if (loadingScreen.parentNode) {
+                    loadingScreen.parentNode.removeChild(loadingScreen);
+                }
+            }, 500);
+        }, 1000);
+    });
+}
+
+// Show loading screen on page load
+document.addEventListener('DOMContentLoaded', showLoadingScreen);
