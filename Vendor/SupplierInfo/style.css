@@ -23,7 +23,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(186, 146, 207, 0.95); /* blush purple */
+    background: rgba(218, 177, 239, 0.95); /* blush purple */
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(147, 112, 219, 0.2);
     z-index: 1000;
@@ -32,8 +32,9 @@ body {
 
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    /* max-width: 1200px; */
+    /* margin: 0 auto; */
+    width: 100%;
     padding: 0 1rem;
     display: flex;
     justify-content: space-between;
@@ -569,44 +570,5 @@ body {
     :root {
         --border-color: #000000;
         --text-secondary: #000000;
-    }
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-primary: #111827;
-        --bg-secondary: #1f2937;
-        --text-primary: #f9fafb;
-        --text-secondary: #d1d5db;
-        --border-color: #374151;
-    }
-    
-    .navbar {
-        background: rgba(17, 24, 39, 0.95);
-    }
-    
-    .feature-card {
-        background: var(--bg-secondary);
-        border-color: var(--border-color);
-    }
-    
-    .registration-form-container {
-        background: var(--bg-secondary);
-    }
-    
-    .form-group input {
-        background: var(--bg-primary);
-        border-color: var(--border-color);
-        color: var(--text-primary);
-    }
-    
-    .radio-label {
-        background: var(--bg-primary);
-        border-color: var(--border-color);
-    }
-    
-    .radio-label:hover {
-        background: var(--bg-secondary);
     }
 }
