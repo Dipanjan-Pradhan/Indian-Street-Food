@@ -5,10 +5,15 @@
   "author": "Terminators",
   "license": "KIIT",
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./Supplier/static/input.css -o ./Supplier/static/output.css --watch"
+    "build": "npx @tailwindcss/cli -i ./Supplier/static/input.css -o ./Supplier/static/output.css --watch",
+    "dev": "nodemon nodejs/index.js"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "mongoose": "^8.15.1",
+    "multer": "^2.0.2"
   }
 }
