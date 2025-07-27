@@ -56,4 +56,41 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Add supplier signup route
+router.post('/signup', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const User = require('../../models/user');
+    // Check if user exists
+    const existing = await User.findOne({ username });
+    if (existing) {
+      return res.status(409).json({ error: 'Username already exists' });
+    }
+    // Create user
+    const user = new User({ username, password, type: 'supplier' });
+    await user.save();
+    // Create supplier profile
+    const supplier = new Supplier({ user: user._id });
+    await supplier.save();
+    res.status(201).json({ message: 'Supplier registered successfully' });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Add supplier login route
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const User = require('../../models/user');
+    const user = await User.findOne({ username, type: 'supplier' });
+    if (!user || user.password !== password) {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+    res.json({ message: 'Login successful' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router; 
