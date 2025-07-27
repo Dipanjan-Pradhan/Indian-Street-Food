@@ -37,10 +37,8 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 app.get('/Supplier/login', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/login.html')));
 app.get('/Supplier/welcome', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/welcome.html')));
 app.get('/Vendor/LandPage/vendor', (req, res) => res.sendFile(path.join(__dirname, '../Vendor/LandPage/vendor.html')));
-
-// Auth-protected pages
-app.get('/Supplier/items', requireAuth, (req, res) => res.sendFile(path.join(__dirname, '../Supplier/items.html')));
-app.get('/Supplier/profile', requireAuth, (req, res) => res.sendFile(path.join(__dirname, '../Supplier/profile.html')));
+app.get('/Supplier/items', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/items.html')));
+app.get('/Supplier/profile', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/profile.html')));
 
 // Example: API endpoint for login
 app.post('/api/login', (req, res) => {
