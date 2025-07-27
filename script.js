@@ -110,6 +110,12 @@ function handleFormSubmit(e) {
     })
     .then(async response => {
         if (response.ok) {
+            // Get the response data with the user ID
+            const data = await response.json();
+            
+            // Store user ID in localStorage so it's available across all pages
+            localStorage.setItem('currentUserId', data._id);
+            
             // Redirect to login page based on user type
             if (userData.userType === 'supplier') {
                 window.location.href = '/Supplier/welcome';

@@ -1,3 +1,6 @@
+// Ensure the supplier ID is available from localStorage if not set
+window.currentSupplierId = window.currentSupplierId || localStorage.getItem('currentUserId');
+
 function addItemRow() {
     const container = document.getElementById('itemsContainer');
     const row = document.createElement('div');
@@ -25,12 +28,18 @@ function removeItemRow(btn) {
 document.getElementById('itemsForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const items = [];
+    const supplierId = window.currentSupplierId || localStorage.getItem('currentUserId');
+    if (!supplierId) {
+        alert('User ID not found. Please log in again.');
+        window.location.href = '/Supplier/login.html';
+        return;
+    }
     const rows = document.querySelectorAll('#itemsContainer .item-row');
     rows.forEach(row => {
         const name = row.querySelector('input[name="itemName[]"]').value;
         const price = row.querySelector('input[name="itemPrice[]"]').value;
         if (name && price) {
-            items.push({ itemname: name, price: parseFloat(price) });
+            items.push({ itemname: name, price: parseFloat(price), user: supplierId });
         }
     });
     // Send to backend

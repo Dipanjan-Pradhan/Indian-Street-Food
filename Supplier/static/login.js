@@ -40,6 +40,9 @@ loginForm.addEventListener('submit', async (e) => {
         });
         const data = await res.json();
         if (res.ok) {
+            localStorage.setItem('currentUserId', data.userId);
+            window.currentUserId = data.userId;
+            window.currentSupplierId = data.userId;
             window.location.href = '/Supplier/welcome.html';
         } else {
             formMessage.textContent = data.error || 'Login failed';

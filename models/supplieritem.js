@@ -1,7 +1,7 @@
 const mongoose = require('./db');
 
 const supplieritemSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "vender" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   itemname: String,
   price: Number
 });
