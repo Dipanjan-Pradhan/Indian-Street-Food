@@ -114,7 +114,7 @@ function handleFormSubmit(e) {
             if (userData.userType === 'supplier') {
                 window.location.href = '/Supplier/login';
             } else if (userData.userType === 'vendor') {
-                window.location.href = '/Vendor/LandPage/vendor';
+                window.location.href = '/Vendor/login/login';
             } else {
                 window.location.href = '/';
             }

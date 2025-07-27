@@ -37,8 +37,23 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 app.get('/Supplier/login', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/login.html')));
 app.get('/Supplier/welcome', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/welcome.html')));
 app.get('/Vendor/LandPage/vendor', (req, res) => res.sendFile(path.join(__dirname, '../Vendor/LandPage/vendor.html')));
+app.use('/Vendor/login/login', express.static(path.join(__dirname, '../Vendor/login/login.html')));
+app.use('/Vendor/SupplierInfo/supplier', express.static(path.join(__dirname, '../Vendor/SupplierInfo/supplier.html')));
 app.get('/Supplier/items', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/items.html')));
 app.get('/Supplier/profile', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/profile.html')));
+
+// Serve all HTML files in Vendor/LandPage
+app.get('/Vendor/LandPage/:file', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Vendor/LandPage', req.params.file));
+});
+// Serve all HTML files in Vendor/SupplierInfo
+app.get('/Vendor/SupplierInfo/:file', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Vendor/SupplierInfo', req.params.file));
+});
+// Serve all HTML files in Vendor/login
+app.get('/Vendor/login/:file', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Vendor/login', req.params.file));
+});
 
 // Example: API endpoint for login
 app.post('/api/login', (req, res) => {
