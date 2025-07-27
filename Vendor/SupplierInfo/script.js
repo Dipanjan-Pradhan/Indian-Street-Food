@@ -1,4 +1,4 @@
- // Sample supplier data
+// Sample supplier data - only 6 unique suppliers
  const suppliers = [
     {
         id: 1,
@@ -100,12 +100,18 @@
 
 let currentSort = 'distance';
 let filteredSuppliers = [...suppliers];
+let isInitialized = false;
 
-// Initialize the page
+// Initialize the page only once
 document.addEventListener('DOMContentLoaded', function() {
+    if (!isInitialized) {
+        isInitialized = true;
+        console.log('Initializing supplier page with', suppliers.length, 'suppliers');
     displaySuppliers(filteredSuppliers);
     updateStats();
     setupEventListeners();
+        getIngredientFromURL();
+    }
 });
 
 function setupEventListeners() {
@@ -120,25 +126,44 @@ function setupEventListeners() {
     });
 
     // Filter inputs
-    document.getElementById('distanceFilter').addEventListener('input', function() {
-        document.getElementById('distanceValue').textContent = this.value;
+    const distanceFilter = document.getElementById('distanceFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    
+    if (distanceFilter) {
+        distanceFilter.addEventListener('input', function() {
+            const distanceValue = document.getElementById('distanceValue');
+            if (distanceValue) {
+                distanceValue.textContent = this.value;
+            }
         filterSuppliers();
     });
+    }
 
-    document.getElementById('priceFilter').addEventListener('input', function() {
-        document.getElementById('priceValue').textContent = this.value;
-        filterSuppliers();
-    });
+    if (priceFilter) {
+        priceFilter.addEventListener('input', function() {
+            const priceValue = document.getElementById('priceValue');
+            if (priceValue) {
+                priceValue.textContent = this.value;
+            }
+            filterSuppliers();
+        });
+    }
 }
 
 function filterSuppliers() {
-    const maxDistance = parseInt(document.getElementById('distanceFilter').value);
-    const maxPrice = parseInt(document.getElementById('priceFilter').value);
+    const distanceFilter = document.getElementById('distanceFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    
+    if (!distanceFilter || !priceFilter) return;
+
+    const maxDistance = parseInt(distanceFilter.value);
+    const maxPrice = parseInt(priceFilter.value);
 
     filteredSuppliers = suppliers.filter(supplier => 
         supplier.distance <= maxDistance && supplier.price <= maxPrice
     );
 
+    console.log('Filtered suppliers:', filteredSuppliers.length);
     sortAndDisplaySuppliers();
 }
 
@@ -166,20 +191,34 @@ function displaySuppliers(suppliersList) {
     const loadingSpinner = document.getElementById('loadingSpinner');
     const noSuppliers = document.getElementById('noSuppliers');
 
+    if (!container) {
+        console.error('Suppliers container not found');
+        return;
+    }
+
     // Show loading
+    if (loadingSpinner) {
     loadingSpinner.style.display = 'block';
+    }
     container.innerHTML = '';
 
     setTimeout(() => {
+        if (loadingSpinner) {
         loadingSpinner.style.display = 'none';
+        }
 
         if (suppliersList.length === 0) {
+            if (noSuppliers) {
             noSuppliers.style.display = 'block';
+            }
             return;
         }
 
+        if (noSuppliers) {
         noSuppliers.style.display = 'none';
+        }
 
+        console.log('Displaying', suppliersList.length, 'suppliers');
         suppliersList.forEach((supplier, index) => {
             const supplierCard = createSupplierCard(supplier, index);
             container.appendChild(supplierCard);
@@ -243,10 +282,15 @@ function updateStats() {
     const nearestDistance = Math.min(...suppliers.map(s => s.distance));
     const avgRating = (suppliers.reduce((sum, s) => sum + s.rating, 0) / suppliers.length).toFixed(1);
 
-    document.getElementById('totalSuppliers').textContent = totalSuppliers;
-    document.getElementById('avgPrice').textContent = `₹${avgPrice}`;
-    document.getElementById('nearestDistance').textContent = nearestDistance;
-    document.getElementById('avgRating').textContent = avgRating;
+    const totalSuppliersEl = document.getElementById('totalSuppliers');
+    const avgPriceEl = document.getElementById('avgPrice');
+    const nearestDistanceEl = document.getElementById('nearestDistance');
+    const avgRatingEl = document.getElementById('avgRating');
+
+    if (totalSuppliersEl) totalSuppliersEl.textContent = totalSuppliers;
+    if (avgPriceEl) avgPriceEl.textContent = `₹${avgPrice}`;
+    if (nearestDistanceEl) nearestDistanceEl.textContent = nearestDistance;
+    if (avgRatingEl) avgRatingEl.textContent = avgRating;
 }
 
 function contactSupplier(supplierId) {
@@ -267,9 +311,9 @@ function emailSupplier(supplierId) {
 function getIngredientFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const ingredient = urlParams.get('ingredient') || 'Fresh Tomatoes';
-    document.getElementById('ingredientName').textContent = ingredient;
+    const ingredientNameEl = document.getElementById('ingredientName');
+    if (ingredientNameEl) {
+        ingredientNameEl.textContent = ingredient;
+    }
     document.title = `${ingredient} Suppliers | VendorConnect`;
 }
-
-// Initialize with URL parameter
-getIngredientFromURL();
