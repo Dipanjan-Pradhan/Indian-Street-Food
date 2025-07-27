@@ -86,6 +86,149 @@ const ingredientsData = {
         { name: 'Green Chilies', quantity: '100g', price: '₹20' },
         { name: 'Ginger', quantity: '100g', price: '₹25' },
         { name: 'Fresh Coriander', quantity: '100g', price: '₹25' }
+    ],
+    'pav-bhaji': [
+        { name: 'Potatoes', quantity: '1kg', price: '₹40' },
+        { name: 'Cauliflower', quantity: '500g', price: '₹30' },
+        { name: 'Green Peas', quantity: '250g', price: '₹30' },
+        { name: 'Capsicum', quantity: '250g', price: '₹25' },
+        { name: 'Onions', quantity: '500g', price: '₹15' },
+        { name: 'Tomatoes', quantity: '1kg', price: '₹50' },
+        { name: 'Pav Bhaji Masala', quantity: '100g', price: '₹60' },
+        { name: 'Butter', quantity: '200g', price: '₹90' },
+        { name: 'Pav (Bread Rolls)', quantity: '20 pieces', price: '₹60' },
+        { name: 'Lemon', quantity: '5 pieces', price: '₹20' }
+    ],
+    // 15 more street food items
+    'idli': [
+        { name: 'Rice', quantity: '1kg', price: '₹50' },
+        { name: 'Urad Dal', quantity: '500g', price: '₹60' },
+        { name: 'Fenugreek Seeds', quantity: '50g', price: '₹20' },
+        { name: 'Salt', quantity: '100g', price: '₹10' }
+    ],
+    'jalebi': [
+        { name: 'All Purpose Flour', quantity: '500g', price: '₹25' },
+        { name: 'Curd', quantity: '200g', price: '₹20' },
+        { name: 'Sugar', quantity: '1kg', price: '₹45' },
+        { name: 'Saffron', quantity: '1g', price: '₹80' },
+        { name: 'Oil for frying', quantity: '1L', price: '₹120' }
+    ],
+    'kulfi': [
+        { name: 'Full Cream Milk', quantity: '2L', price: '₹100' },
+        { name: 'Sugar', quantity: '500g', price: '₹25' },
+        { name: 'Cardamom', quantity: '20g', price: '₹80' },
+        { name: 'Pistachios', quantity: '50g', price: '₹120' },
+        { name: 'Almonds', quantity: '50g', price: '₹100' }
+    ],
+    'biryani': [
+        { name: 'Basmati Rice', quantity: '1kg', price: '₹120' },
+        { name: 'Chicken/Mutton', quantity: '1kg', price: '₹300' },
+        { name: 'Onions', quantity: '500g', price: '₹15' },
+        { name: 'Yogurt', quantity: '200g', price: '₹20' },
+        { name: 'Biryani Masala', quantity: '100g', price: '₹60' },
+        { name: 'Saffron', quantity: '1g', price: '₹80' },
+        { name: 'Oil/Ghee', quantity: '250ml', price: '₹60' }
+    ],
+    'tandoori-chicken': [
+        { name: 'Chicken', quantity: '1kg', price: '₹220' },
+        { name: 'Yogurt', quantity: '200g', price: '₹20' },
+        { name: 'Tandoori Masala', quantity: '100g', price: '₹60' },
+        { name: 'Lemon', quantity: '2 pieces', price: '₹8' },
+        { name: 'Oil', quantity: '100ml', price: '₹20' }
+    ],
+    'paratha': [
+        { name: 'Wheat Flour', quantity: '1kg', price: '₹40' },
+        { name: 'Potatoes', quantity: '500g', price: '₹20' },
+        { name: 'Ghee', quantity: '200g', price: '₹80' },
+        { name: 'Green Chilies', quantity: '50g', price: '₹10' },
+        { name: 'Salt', quantity: '100g', price: '₹10' }
+    ],
+    'naan': [
+        { name: 'All Purpose Flour', quantity: '1kg', price: '₹50' },
+        { name: 'Yogurt', quantity: '200g', price: '₹20' },
+        { name: 'Baking Powder', quantity: '50g', price: '₹15' },
+        { name: 'Butter', quantity: '100g', price: '₹45' },
+        { name: 'Salt', quantity: '100g', price: '₹10' }
+    ],
+    'rasgulla': [
+        { name: 'Milk', quantity: '2L', price: '₹100' },
+        { name: 'Lemon Juice', quantity: '50ml', price: '₹10' },
+        { name: 'Sugar', quantity: '1kg', price: '₹45' },
+        { name: 'Cardamom', quantity: '10g', price: '₹40' }
+    ],
+    'kachori': [
+        { name: 'All Purpose Flour', quantity: '1kg', price: '₹50' },
+        { name: 'Moong Dal', quantity: '500g', price: '₹60' },
+        { name: 'Spices Mix', quantity: '100g', price: '₹30' },
+        { name: 'Oil for frying', quantity: '1L', price: '₹120' }
+    ],
+    'chaat': [
+        { name: 'Papdi', quantity: '200g', price: '₹30' },
+        { name: 'Boiled Potatoes', quantity: '500g', price: '₹20' },
+        { name: 'Chickpeas', quantity: '250g', price: '₹35' },
+        { name: 'Yogurt', quantity: '200g', price: '₹20' },
+        { name: 'Tamarind Chutney', quantity: '100g', price: '₹25' },
+        { name: 'Green Chutney', quantity: '100g', price: '₹20' }
+    ],
+    'bhel-puri': [
+        { name: 'Puffed Rice', quantity: '500g', price: '₹30' },
+        { name: 'Sev', quantity: '200g', price: '₹25' },
+        { name: 'Onions', quantity: '200g', price: '₹6' },
+        { name: 'Tomatoes', quantity: '200g', price: '₹10' },
+        { name: 'Tamarind Chutney', quantity: '100g', price: '₹25' },
+        { name: 'Green Chutney', quantity: '100g', price: '₹20' }
+    ],
+    'sev-puri': [
+        { name: 'Papdi', quantity: '200g', price: '₹30' },
+        { name: 'Sev', quantity: '200g', price: '₹25' },
+        { name: 'Potatoes', quantity: '500g', price: '₹20' },
+        { name: 'Onions', quantity: '200g', price: '₹6' },
+        { name: 'Tamarind Chutney', quantity: '100g', price: '₹25' },
+        { name: 'Green Chutney', quantity: '100g', price: '₹20' }
+    ],
+    'dhokla': [
+        { name: 'Gram Flour (Besan)', quantity: '500g', price: '₹80' },
+        { name: 'Yogurt', quantity: '200g', price: '₹20' },
+        { name: 'Eno Fruit Salt', quantity: '10g', price: '₹10' },
+        { name: 'Mustard Seeds', quantity: '20g', price: '₹15' },
+        { name: 'Curry Leaves', quantity: '20g', price: '₹10' }
+    ],
+    'masala-dosa': [
+        { name: 'Rice', quantity: '1kg', price: '₹50' },
+        { name: 'Urad Dal', quantity: '500g', price: '₹60' },
+        { name: 'Potatoes', quantity: '500g', price: '₹20' },
+        { name: 'Onions', quantity: '200g', price: '₹6' },
+        { name: 'Mustard Seeds', quantity: '20g', price: '₹15' },
+        { name: 'Curry Leaves', quantity: '20g', price: '₹10' }
+    ],
+    'uttapam': [
+        { name: 'Rice', quantity: '1kg', price: '₹50' },
+        { name: 'Urad Dal', quantity: '500g', price: '₹60' },
+        { name: 'Onions', quantity: '200g', price: '₹6' },
+        { name: 'Tomatoes', quantity: '200g', price: '₹10' },
+        { name: 'Green Chilies', quantity: '50g', price: '₹10' }
+    ],
+    'poha': [
+        { name: 'Flattened Rice (Poha)', quantity: '500g', price: '₹30' },
+        { name: 'Onions', quantity: '200g', price: '₹6' },
+        { name: 'Potatoes', quantity: '200g', price: '₹8' },
+        { name: 'Peanuts', quantity: '100g', price: '₹20' },
+        { name: 'Mustard Seeds', quantity: '20g', price: '₹15' },
+        { name: 'Curry Leaves', quantity: '20g', price: '₹10' }
+    ],
+    'upma': [
+        { name: 'Semolina (Suji)', quantity: '500g', price: '₹30' },
+        { name: 'Onions', quantity: '200g', price: '₹6' },
+        { name: 'Green Chilies', quantity: '50g', price: '₹10' },
+        { name: 'Mustard Seeds', quantity: '20g', price: '₹15' },
+        { name: 'Curry Leaves', quantity: '20g', price: '₹10' }
+    ],
+    'aloo-tikki': [
+        { name: 'Potatoes', quantity: '1kg', price: '₹40' },
+        { name: 'Bread Crumbs', quantity: '200g', price: '₹20' },
+        { name: 'Green Chilies', quantity: '50g', price: '₹10' },
+        { name: 'Spices Mix', quantity: '50g', price: '₹20' },
+        { name: 'Oil for frying', quantity: '1L', price: '₹120' }
     ]
 };
 
