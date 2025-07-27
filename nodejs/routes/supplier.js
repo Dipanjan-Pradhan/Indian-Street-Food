@@ -59,19 +59,29 @@ router.delete('/:id', async (req, res) => {
 // Add supplier signup route
 router.post('/signup', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { name, phone, email, username, password } = req.body;
     const User = require('../../models/user');
-    // Check if user exists
-    const existing = await User.findOne({ username });
-    if (existing) {
+    // Find existing user by name, phone, and email
+    let user = await User.findOne({ name, phone, email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found. Please register first.' });
+    }
+    // Check if username is already taken by another user
+    const usernameTaken = await User.findOne({ username, _id: { $ne: user._id } });
+    if (usernameTaken) {
       return res.status(409).json({ error: 'Username already exists' });
     }
-    // Create user
-    const user = new User({ username, password, type: 'supplier' });
+    // Update user with username, password, and type
+    user.username = username;
+    user.password = password;
+    user.type = 'supplier';
     await user.save();
-    // Create supplier profile
-    const supplier = new Supplier({ user: user._id });
-    await supplier.save();
+    // Create supplier profile if not already created
+    let supplier = await Supplier.findOne({ user: user._id });
+    if (!supplier) {
+      supplier = new Supplier({ user: user._id });
+      await supplier.save();
+    }
     res.status(201).json({ message: 'Supplier registered successfully' });
   } catch (err) {
     res.status(400).json({ error: err.message });
