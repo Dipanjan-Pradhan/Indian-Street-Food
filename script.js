@@ -112,9 +112,9 @@ function handleFormSubmit(e) {
         if (response.ok) {
             // Redirect to login page based on user type
             if (userData.userType === 'supplier') {
-                window.location.href = '/Supplier/login';
+                window.location.href = '/Supplier/welcome';
             } else if (userData.userType === 'vendor') {
-                window.location.href = '/Vendor/login/login';
+                window.location.href = '/Vendor/LandPage/vendor';
             } else {
                 window.location.href = '/';
             }
