@@ -631,14 +631,17 @@ function findSuppliers() {
         console.log('Using fallback storage method');
     }
     
-    // Show success message and simulate redirect
+    // Show success message and redirect to supplier page
     showNotification(`Found suppliers for ${selectedIngredients.length} ingredients! Redirecting...`, 'success');
     
+    // Get the first selected ingredient name for the URL parameter
+    const firstIngredient = selectedIngredients[0].name;
+    
     setTimeout(() => {
-        // In a real application, this would redirect to: /SupplierInfo/ingredient-suppliers.html
-        showNotification('Redirect to supplier page would happen here', 'info');
+        // Redirect to the supplier page with the ingredient name as a parameter
+        window.location.href = `../SupplierInfo/supplier.html?ingredient=${encodeURIComponent(firstIngredient)}`;
         closeModal(document.querySelector('.ingredients-modal'));
-    }, 2000);
+    }, 1500);
 }
 
 function getDefaultIngredients(foodName) {

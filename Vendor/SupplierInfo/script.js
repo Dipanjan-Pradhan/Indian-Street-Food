@@ -1,118 +1,121 @@
-// Sample supplier data - only 6 unique suppliers
- const suppliers = [
-    {
-        id: 1,
-        name: "Anita Patel",
-        business: "Anita Fresh Groceries",
-        avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=100&h=100&fit=crop&crop=face",
-        price: 42,
-        distance: 2.1,
-        rating: 4.5,
-        reviews: 127,
-        location: "Ahmedabad Central Market",
-        phone: "+91 98765 43210",
-        email: "anita@freshgroceries.com",
-        description: "Fresh, organic tomatoes sourced directly from local farms. Daily delivery available.",
-        minOrder: 10,
-        deliveryTime: "2-4 hours"
-    },
-    {
-        id: 2,
-        name: "Sundar Kumar",
-        business: "Sundar Fresh Farm",
-        avatar: "https://images.unsplash.com/photo-1544725176-7c40e5a2c9f9?w=100&h=100&fit=crop&crop=face",
-        price: 38,
-        distance: 3.8,
-        rating: 4.8,
-        reviews: 89,
-        location: "Madurai Vegetable Hub",
-        phone: "+91 98765 43211",
-        email: "sundar@freshfarm.com",
-        description: "Premium quality tomatoes with guaranteed freshness. Bulk orders welcome.",
-        minOrder: 5,
-        deliveryTime: "1-3 hours"
-    },
-    {
-        id: 3,
-        name: "Fatima Sheikh",
-        business: "Fatima Spice Supply",
-        avatar: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?w=100&h=100&fit=crop&crop=face",
-        price: 45,
-        distance: 1.5,
-        rating: 4.2,
-        reviews: 203,
-        location: "Hyderabad Spice Market",
-        phone: "+91 98765 43212",
-        email: "fatima@spicesupply.com",
-        description: "Fresh tomatoes and complete spice solutions for street food vendors.",
-        minOrder: 15,
-        deliveryTime: "3-5 hours"
-    },
-    {
-        id: 4,
-        name: "Rajesh Verma",
-        business: "Verma Organic Farms",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-        price: 52,
-        distance: 5.2,
-        rating: 4.7,
-        reviews: 156,
-        location: "Pune Organic Hub",
-        phone: "+91 98765 43213",
-        email: "rajesh@organicfarms.com",
-        description: "100% organic tomatoes grown without pesticides. Premium quality guaranteed.",
-        minOrder: 20,
-        deliveryTime: "4-6 hours"
-    },
-    {
-        id: 5,
-        name: "Priya Sharma",
-        business: "Priya's Fresh Corner",
-        avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-        price: 40,
-        distance: 4.1,
-        rating: 4.3,
-        reviews: 94,
-        location: "Delhi Fresh Market",
-        phone: "+91 98765 43214",
-        email: "priya@freshcorner.com",
-        description: "Daily fresh tomatoes with competitive pricing. Regular customer discounts.",
-        minOrder: 8,
-        deliveryTime: "2-4 hours"
-    },
-    {
-        id: 6,
-        name: "Mohammed Ali",
-        business: "Ali's Vegetable World",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-        price: 35,
-        distance: 6.8,
-        rating: 4.0,
-        reviews: 67,
-        location: "Mumbai Vegetable Market",
-        phone: "+91 98765 43215",
-        email: "ali@vegetableworld.com",
-        description: "Wholesale tomatoes at best prices. Perfect for large orders.",
-        minOrder: 25,
-        deliveryTime: "5-7 hours"
-    }
-];
+// Remove the hardcoded suppliers array at the top of the file
+// (lines 2-97 can be deleted)
 
+// Initialize with empty suppliers array
+let suppliers = [];
 let currentSort = 'distance';
-let filteredSuppliers = [...suppliers];
+let filteredSuppliers = [];
 let isInitialized = false;
 
 // Initialize the page only once
 document.addEventListener('DOMContentLoaded', function() {
     if (!isInitialized) {
         isInitialized = true;
-        console.log('Initializing supplier page with', suppliers.length, 'suppliers');
-    displaySuppliers(filteredSuppliers);
-    updateStats();
-    setupEventListeners();
         getIngredientFromURL();
+        fetchSuppliers();
     }
 });
+
+// Fetch suppliers from the database based on the ingredient
+async function fetchSuppliers() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ingredient = urlParams.get('ingredient') || 'Fresh Tomatoes';
+    
+    try {
+        // Show loading spinner
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        if (loadingSpinner) {
+            loadingSpinner.style.display = 'block';
+        }
+        
+        // Fetch suppliers that have the selected ingredient
+        let response;
+        try {
+            // Use the byitem endpoint to get supplier items matching the ingredient name
+            response = await fetch(`/api/supplieritem/byitem?itemname=${encodeURIComponent(ingredient)}`);
+            
+            if (response.ok) {
+                const supplierItems = await response.json();
+                
+                // If we have supplier items, fetch the corresponding supplier details
+                if (supplierItems && supplierItems.length > 0) {
+                    const supplierPromises = supplierItems.map(async (item) => {
+                        const supplierResponse = await fetch(`/api/supplier?userId=${item.user}`);
+                        if (supplierResponse.ok) {
+                            const supplierData = await supplierResponse.json();
+                            if (supplierData && supplierData.length > 0) {
+                                // Get user data for name, phone, email
+                                const userResponse = await fetch(`/api/user/${supplierData[0].user}`);
+                                let userData = {};
+                                if (userResponse.ok) {
+                                    userData = await userResponse.json();
+                                }
+                                
+                                // Combine supplier data with item data and user data
+                                return {
+                                    id: supplierData[0]._id,
+                                    name: userData.name || 'Unknown Supplier',
+                                    business: supplierData[0].shopname || 'Unknown Business',
+                                    avatar: `/api/supplier/${supplierData[0]._id}/image`,
+                                    price: item.price || 0,
+                                    distance: 5, // Placeholder - would need geolocation calculation
+                                    rating: 4.5, // Placeholder - would need rating system
+                                    reviews: 10, // Placeholder
+                                    location: supplierData[0].location || 'Unknown Location',
+                                    phone: userData.phone || 'Unknown',
+                                    email: userData.email || 'Unknown',
+                                    description: `${supplierData[0].specialization || 'Various products'} with ${supplierData[0].experience || '0'} years of experience`,
+                                    minOrder: 5, // Placeholder
+                                    deliveryTime: "2-4 hours" // Placeholder
+                                };
+                            }
+                        }
+                        return null;
+                    });
+                    
+                    suppliers = (await Promise.all(supplierPromises)).filter(s => s !== null);
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching suppliers:', error);
+        }
+        
+        // If no suppliers found, show the no suppliers message
+        if (!suppliers || suppliers.length === 0) {
+            // Hide loading spinner
+            if (loadingSpinner) {
+                loadingSpinner.style.display = 'none';
+            }
+            
+            // Show no suppliers message
+            const noSuppliers = document.getElementById('noSuppliers');
+            if (noSuppliers) {
+                noSuppliers.style.display = 'block';
+            }
+            return;
+        }
+        
+        // Update the UI
+        filteredSuppliers = [...suppliers];
+        displaySuppliers(filteredSuppliers);
+        updateStats();
+        setupEventListeners();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        // Hide loading spinner
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        if (loadingSpinner) {
+            loadingSpinner.style.display = 'none';
+        }
+        
+        // Show error message
+        const noSuppliers = document.getElementById('noSuppliers');
+        if (noSuppliers) {
+            noSuppliers.style.display = 'block';
+        }
+    }
+}
 
 function setupEventListeners() {
     // Sort buttons

@@ -63,4 +63,23 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router; 
+// Get SupplierItems by itemname
+router.get('/byitem', async (req, res) => {
+  try {
+    const itemname = req.query.itemname;
+    if (!itemname) {
+      return res.status(400).json({ error: 'Item name is required' });
+    }
+    
+    // Use regex for case-insensitive partial matching
+    const items = await SupplierItem.find({
+      itemname: { $regex: new RegExp(itemname, 'i') }
+    });
+    
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+module.exports = router;
