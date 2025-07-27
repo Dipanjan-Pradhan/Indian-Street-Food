@@ -1,11 +1,37 @@
 const express = require('express');
 const Supplier = require('../../models/supplier');
 const router = express.Router();
+const multer = require('multer');
 
-// Create Supplier
-router.post('/', async (req, res) => {
+// Configure multer for handling file uploads
+const storage = multer.memoryStorage(); // Store files in memory as Buffer
+const upload = multer({ 
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 } // Limit file size to 5MB
+});
+
+// Create Supplier with image upload
+router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const supplier = new Supplier(req.body);
+    const supplierData = {
+      user: req.body.user,
+      gstin: req.body.gstin,
+      shopname: req.body.shopname,
+      buisnesstype: req.body.buisnesstype,
+      location: req.body.location,
+      experience: req.body.experience,
+      specialization: req.body.specialization
+    };
+    
+    // Add image data if provided
+    if (req.file) {
+      supplierData.image = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+      };
+    }
+    
+    const supplier = new Supplier(supplierData);
     await supplier.save();
     res.status(201).json(supplier);
   } catch (err) {
@@ -13,10 +39,14 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all Suppliers
+// Get all Suppliers or filter by userId
 router.get('/', async (req, res) => {
   try {
-    const suppliers = await Supplier.find();
+    const query = {};
+    if (req.query.userId) {
+      query.user = req.query.userId;
+    }
+    const suppliers = await Supplier.find(query);
     res.json(suppliers);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -34,10 +64,48 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update Supplier
-router.put('/:id', async (req, res) => {
+// Get Supplier image
+router.get('/:id/image', async (req, res) => {
   try {
-    const supplier = await Supplier.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const supplier = await Supplier.findById(req.params.id);
+    if (!supplier || !supplier.image || !supplier.image.data) {
+      return res.status(404).send('Image not found');
+    }
+    
+    res.set('Content-Type', supplier.image.contentType);
+    res.send(supplier.image.data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Update Supplier with image upload
+router.put('/:id', upload.single('image'), async (req, res) => {
+  try {
+    const supplierData = {
+      user: req.body.user,
+      gstin: req.body.gstin,
+      shopname: req.body.shopname,
+      buisnesstype: req.body.buisnesstype,
+      location: req.body.location,
+      experience: req.body.experience,
+      specialization: req.body.specialization
+    };
+    
+    // Add image data if provided
+    if (req.file) {
+      supplierData.image = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+      };
+    }
+    
+    // If no new image is provided and removeImage flag is set, remove the current image
+    if (req.body.removeImage === 'true' && !req.file) {
+      supplierData.image = null;
+    }
+    
+    const supplier = await Supplier.findByIdAndUpdate(req.params.id, supplierData, { new: true });
     if (!supplier) return res.status(404).json({ error: 'Not found' });
     res.json(supplier);
   } catch (err) {
@@ -103,4 +171,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router; 
+module.exports = router;

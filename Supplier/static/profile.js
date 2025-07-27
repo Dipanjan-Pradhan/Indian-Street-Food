@@ -30,17 +30,6 @@ document.getElementById('profileForm').addEventListener('submit', async function
         phone: document.getElementById('phone').value
     };
     
-    // Prepare supplier data (all other fields)
-    const supplierData = {
-        shopname: document.getElementById('shopName').value,
-        gstin: document.getElementById('gstin').value,
-        buisnesstype: document.getElementById('businessType').value,
-        location: document.getElementById('location').value,
-        experience: document.getElementById('experience').value,
-        specialization: document.getElementById('specialization').value,
-        user: userId
-    };
-    
     try {
         // First, update user data
         const userRes = await fetch(`/api/user/${userId}`, {
@@ -64,21 +53,35 @@ document.getElementById('profileForm').addEventListener('submit', async function
             }
         }
         
+        // Create FormData for supplier data with image
+        const formData = new FormData();
+        formData.append('shopname', document.getElementById('shopName').value);
+        formData.append('gstin', document.getElementById('gstin').value);
+        formData.append('buisnesstype', document.getElementById('businessType').value);
+        formData.append('location', document.getElementById('location').value);
+        formData.append('experience', document.getElementById('experience').value);
+        formData.append('specialization', document.getElementById('specialization').value);
+        formData.append('user', userId);
+        
+        // Add image file if one is selected
+        const avatarInput = document.getElementById('avatarInput');
+        if (avatarInput.files.length > 0) {
+            formData.append('image', avatarInput.files[0]);
+        }
+        
         let supplierRes;
         
         if (supplierId) {
             // If supplier exists, update it
             supplierRes = await fetch(`/api/supplier/${supplierId}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(supplierData)
+                body: formData // No Content-Type header for FormData
             });
         } else {
             // If supplier doesn't exist, create it
             supplierRes = await fetch('/api/supplier', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(supplierData)
+                body: formData // No Content-Type header for FormData
             });
         }
         
@@ -148,10 +151,10 @@ window.addEventListener('DOMContentLoaded', async function() {
                 document.getElementById('location').value = supplierData.location || '';
                 document.getElementById('experience').value = supplierData.experience || '';
                 document.getElementById('specialization').value = supplierData.specialization || '';
-                if (supplierData.image && supplierData.image.data) {
-                    // Convert buffer to base64 and set as image source
-                    const base64Image = btoa(String.fromCharCode.apply(null, new Uint8Array(supplierData.image.data)));
-                    document.getElementById('avatarPreview').src = `data:${supplierData.image.contentType};base64,${base64Image}`;
+                
+                // Display image if available
+                if (supplierData.image) {
+                    document.getElementById('avatarPreview').src = `/api/supplier/${supplierData._id}/image`;
                 }
             }
         }
