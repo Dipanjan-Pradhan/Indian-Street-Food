@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files
-app.use('/Supplier/static', express.static(path.join(__dirname, '../Supplier/static')));
-app.use('/Vendor/LandPage', express.static(path.join(__dirname, '../Vendor/LandPage')));
-app.use('/Vendor/SupplierInfo', express.static(path.join(__dirname, '../Vendor/SupplierInfo')));
+app.use('/Supplier/static', express.static(path.join(__dirname, '../src/Supplier/static')));
+app.use('/Vendor/LandPage', express.static(path.join(__dirname, '../src/Vendor/LandPage')));
+app.use('/Vendor/SupplierInfo', express.static(path.join(__dirname, '../src/Vendor/SupplierInfo')));
 app.use(express.static(path.join(__dirname, '../'))); // For index.html, styles.css, etc.
 
 // Authentication middleware
@@ -34,13 +34,13 @@ function requireAuth(req, res, next) {
 // --- ROUTES ---
 // Public pages
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
-// app.get('/Supplier/login', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/login.html')));
-app.get('/Supplier/welcome', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/welcome.html')));
-app.get('/Vendor/LandPage/vendor', (req, res) => res.sendFile(path.join(__dirname, '../Vendor/LandPage/vendor.html')));
-// app.use('/Vendor/login/login', express.static(path.join(__dirname, '../Vendor/login/login')));
-app.use('/Vendor/SupplierInfo/supplier', express.static(path.join(__dirname, '../Vendor/SupplierInfo/supplier.html')));
-app.get('/Supplier/items', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/items.html')));
-app.get('/Supplier/profile', (req, res) => res.sendFile(path.join(__dirname, '../Supplier/profile.html')));
+// app.get('/Supplier/login', (req, res) => res.sendFile(path.join(__dirname, '../src/Supplier/login.html')));
+app.get('/Supplier/welcome', (req, res) => res.sendFile(path.join(__dirname, '../src/Supplier/welcome.html')));
+app.get('/Vendor/LandPage/vendor', (req, res) => res.sendFile(path.join(__dirname, '../src/Vendor/LandPage/vendor.html')));
+// app.use('/Vendor/login/login', express.static(path.join(__dirname, '../src/Vendor/login/login')));
+app.use('/Vendor/SupplierInfo/supplier', express.static(path.join(__dirname, '../src/Vendor/SupplierInfo/supplier.html')));
+app.get('/Supplier/items', (req, res) => res.sendFile(path.join(__dirname, '../src/Supplier/items.html')));
+app.get('/Supplier/profile', (req, res) => res.sendFile(path.join(__dirname, '../src/Supplier/profile.html')));
 
 // Serve all HTML files in Vendor/LandPage
 app.get('/Vendor/LandPage/:file', (req, res) => {

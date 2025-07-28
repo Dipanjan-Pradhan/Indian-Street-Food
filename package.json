@@ -5,7 +5,7 @@
   "author": "Terminators",
   "license": "KIIT",
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./Supplier/static/input.css -o ./Supplier/static/output.css --watch",
+    "build": "npx @tailwindcss/cli -i ./src/Supplier/static/input.css -o ./src/Supplier/static/output.css --watch",
     "dev": "nodemon nodejs/index.js"
   },
   "dependencies": {
