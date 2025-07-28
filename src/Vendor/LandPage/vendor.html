@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Street Food Ingredients</title>
+    <link rel="stylesheet" href="../LandPage/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">Explore Street Food Ingredients</h1>
+            <p class="header-subtitle">Find everything you need, curated by AI, for your street food stall.</p>
+        </div>
+    </header>
+
+    <!-- AI-Powered Food Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <h2 class="search-title">What are you looking to make today?</h2>
+                <div class="search-box">
+                    <input type="text" id="foodSearch" class="search-input" placeholder="Search for your street food category...">
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Image Carousel Animation Section -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <!-- Row 1 - Left to Right -->
+            <div class="carousel-row row-1">
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" alt="Phuchka">
+                    <div class="food-overlay">Phuchka</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1630383249896-424e482df921?w=300&h=200&fit=crop" alt="Vada Pav">
+                    <div class="food-overlay">Vada Pav</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&h=200&fit=crop" alt="Chole Bhature">
+                    <div class="food-overlay">Chole Bhature</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=300&h=200&fit=crop" alt="Chai">
+                    <div class="food-overlay">Chai</div>
+                </div>
+                <!-- <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1626132647523-66f5e3e84cf8?w=300&h=200&fit=crop" alt="Pav Bhaji">
+                    <div class="food-overlay">Pav Bhaji</div>
+                </div> -->
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&h=200&fit=crop" alt="Samosa">
+                    <div class="food-overlay">Samosa</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&h=200&fit=crop" alt="Dosa">
+                    <div class="food-overlay">Dosa</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop" alt="Biryani">
+                    <div class="food-overlay">Biryani</div>
+                </div>
+            </div>
+
+            <!-- Row 2 - Right to Left -->
+            <div class="carousel-row row-2">
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=300&h=200&fit=crop" alt="Jalebi">
+                    <div class="food-overlay">Jalebi</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&h=200&fit=crop" alt="Kulfi">
+                    <div class="food-overlay">Kulfi</div>
+                </div>
+                <!-- <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Butter Chicken">
+                    <div class="food-overlay">Butter Chicken</div>
+                </div> -->
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=300&h=200&fit=crop" alt="Tandoori">
+                    <div class="food-overlay">Tandoori</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&h=200&fit=crop" alt="Paratha">
+                    <div class="food-overlay">Paratha</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop" alt="Naan">
+                    <div class="food-overlay">Naan</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=300&h=200&fit=crop" alt="Rasgulla">
+                    <div class="food-overlay">Rasgulla</div>
+                </div>
+                <div class="food-item">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&h=200&fit=crop" alt="Kachori">
+                    <div class="food-overlay">Kachori</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discover Popular Street Foods Section -->
+    <section class="discover-section">
+        <div class="container">
+            <h2 class="section-title">Discover Popular Street Foods</h2>
+            <div class="food-grid">
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop" alt="Chaat">
+                    <div class="card-content">
+                        <h3>Chaat Varieties</h3>
+                        <p>Crispy, tangy, and flavorful snacks</p>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&h=300&fit=crop" alt="Street Snacks">
+                    <div class="card-content">
+                        <h3>Street Snacks</h3>
+                        <p>Quick bites for busy street corners</p>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&h=300&fit=crop" alt="Beverages">
+                    <div class="card-content">
+                        <h3>Traditional Beverages</h3>
+                        <p>Refreshing drinks for every season</p>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section -->
+    <section class="success-section">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="stories-grid">
+                <div class="story-card" data-animation="fade-up">
+                    <div class="vendor-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Ravi Chaiwala">
+                    </div>
+                    <div class="story-content">
+                        <h3>Ravi Chaiwala</h3>
+                        <p class="location">Chennai, Tamil Nadu</p>
+                        <blockquote class="quote" data-typewriter>
+                            "This platform changed my life — I found all the materials in one place!"
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="story-card" data-animation="slide-left">
+                    <div class="vendor-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Priya Devi">
+                    </div>
+                    <div class="story-content">
+                        <h3>Priya Devi</h3>
+                        <p class="location">Mumbai, Maharashtra</p>
+                        <blockquote class="quote" data-typewriter>
+                            "From struggling vendor to successful businesswoman. Thank you for making my dreams come true!"
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="story-card" data-animation="slide-right">
+                    <div class="vendor-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Suresh Kumar">
+                    </div>
+                    <div class="story-content">
+                        <h3>Suresh Kumar</h3>
+                        <p class="location">Delhi, NCR</p>
+                        <blockquote class="quote" data-typewriter>
+                            "Quality ingredients at fair prices. My customers love the taste, and I love the profits!"
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> info@streetfoodingredients.com</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Street Food Ingredients Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../LandPage/script.js"></script>
+</body>
+</html>
